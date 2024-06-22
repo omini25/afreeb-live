@@ -106,6 +106,12 @@ const Cart = ({
         try {
             event.preventDefault();
 
+            // Check if there is a default address
+            if (!defaultAddress) {
+                toast.error('No active address. Please enter an address or select an active address in your account.');
+                return; // Stop the order process
+            }
+
             const productDetails = cartItems.map((item) => ({
                 name: item.product_name,
                 totalPrice: item.price,
@@ -128,23 +134,6 @@ const Cart = ({
                 const result = await stripe.redirectToCheckout({
                     sessionId,
                 });
-
-                // await axios.post(`${server}/orders/${userInfo.user.id}`, {
-                //     cartItems,
-                //     userId: userInfo.user.id,
-                // })
-                //     .then((response) => {
-                //         console.log('Response:', response);
-                //         console.log('Order created successfully');
-                //         toast.success('Order placed successfully!');
-                //         clearCart(); // Assuming you have a clearCart function
-                //         navigate('/order-successful');
-                //     })
-                //     .catch((error) => {
-                //         console.error('Error:', error);
-                //         console.error('Error creating order:', error);
-                //         toast.error('An error occurred while placing the order.');
-                //     });
             } else {
                 toast.error('Failed to create a checkout session.');
             }
