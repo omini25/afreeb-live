@@ -78,7 +78,7 @@ const Cart = ({
             const response = await axios.post(`${mainServer}/address/${userInfo.user.id}`, newAddress);
 
             // If the request is successful, display a success toast and reload the page
-            if (response.status === 200) {
+            if (response.status === 201) {
                 toast.success('Address added successfully.');
                 window.location.reload();
             }
@@ -105,10 +105,10 @@ const Cart = ({
             event.preventDefault();
 
             // Check if there is a default address
-            if (!defaultAddress) {
-                toast.error('No active address. Please enter an address or select an active address in your account.');
-                return; // Stop the order process
-            }
+            // if (!defaultAddress) {
+            //     toast.error('No active address. Please enter an address or select an active address in your account.');
+            //     return; // Stop the order process
+            // }
 
             const productDetails = cartItems.map((item) => ({
                 name: item.product_name,
