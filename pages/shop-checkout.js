@@ -98,7 +98,7 @@ const Cart = ({
         }
     }, []);
 
-    const stripePromise = loadStripe('pk_test_51K4bVzCT7v0Ax3ZCQUKpDk4gTPZ6UuWcJlMpNULOujrGRhsEL4IPAdeZ7KwDXIFEcJ5sLTxm3r2DMCUaQYWbLl2W00W13HDVPl');
+    const stripePromise = loadStripe('sk_test_51K4bVzCT7v0Ax3ZCDrILpNJB4Jwe1FVID5HzQweGGSZDOzy7LnhS5wbzyeZq3Yp5ZX6ZN1eh27LTLnHSBB0kPAQQ00fxTX26ni');
 
     const handleCheckoutSession = async (event) => {
         try {
