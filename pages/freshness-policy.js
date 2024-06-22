@@ -5,3 +5,5 @@ const FreshnessPolicy = () => {
     </div>
   )
 }
+
+export default FreshnessPolicy;

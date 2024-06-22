@@ -5,3 +5,5 @@ const MakeAReport = () => {
     </div>
   )
 }
+
+export default MakeAReport;

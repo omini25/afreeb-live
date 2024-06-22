@@ -6,3 +6,5 @@ const Careers = () => {
         </div>
     );
 }
+
+export default Careers;

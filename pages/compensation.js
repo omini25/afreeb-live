@@ -5,3 +5,5 @@ const Compensation = () => {
     </div>
   )
 }
+
+export default Compensation;

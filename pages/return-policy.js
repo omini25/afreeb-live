@@ -6,3 +6,5 @@ const RetunPolicy = () => {
       </div>
     );
 }
+
+export default RetunPolicy;
