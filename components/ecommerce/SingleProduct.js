@@ -75,13 +75,11 @@ const SingleProduct = ({
                                     className="default-img"
                                     src={`${assetServer}/images/products/${product.image}`}
                                     alt=""
-                                    style={{width: '300px', height: '200px'}}
+                                    style={isMobile ? {width: '150px', height: '100px'} : {
+                                        width: '300px',
+                                        height: '200px'
+                                    }}
                                 />
-                                {/*<img*/}
-                                {/*    className="hover-img"*/}
-                                {/*    src={product.images[1].img}*/}
-                                {/*    alt=""*/}
-                                {/*/>*/}
                             </a>
                         </Link>
                     </div>
@@ -173,7 +171,7 @@ const SingleProduct = ({
                                             className="add"
                                             onClick={(e) => handleCart(product)}
                                         >
-                                            <i className="fi-rs-shopping-cart mr-5"></i> Add
+                                            <i className="fi-rs-shopping-cart mr-5"></i> {isMobile ? null : 'Add'}
                                         </a>
                                     </div>
                                 ) : (
@@ -193,7 +191,7 @@ const SingleProduct = ({
                                     className="add"
                                     onClick={(e) => handleCart(product)}
                                 >
-                                    <i className="fi-rs-shopping-cart mr-5"></i> Add
+                                    <i className="fi-rs-shopping-cart mr-5"></i> {isMobile ? null : 'Add'}
                                 </a>
                             </div>
                         )}

@@ -92,18 +92,21 @@ const Cart = ({
 
                                         <tbody>
                                         {cartItems && cartItems.map((item, i) => (
-                                            <tr key={i}>
-                                                <td className="image product-thumbnail">
+                                            <tr key={i}
+                                                style={{borderTop: '1px solid #000', borderBottom: '1px solid #000'}}>
+                                                <td className="">
                                                     <img
                                                         src={`${assetServer}/images/products/${item.image}`}
+                                                        style={{ width: '50%', height: 'auto' }} // Adjust the percentage as needed
+                                                     alt={item.product_name}
                                                     />
-                                                    <h6 className="product-name mt-2">
+                                                    <p className="product-name mt-2">
                                                         <Link legacyBehavior href={`/products/${item.product_name}`}>
-                                                            <a>
+                                                            <a style={{ wordWrap: 'break-word' }}>
                                                                 {item.product_name}
                                                             </a>
                                                         </Link>
-                                                    </h6>
+                                                    </p>
                                                 </td>
                                                 {!isMobile && <td
                                                     className="price"
