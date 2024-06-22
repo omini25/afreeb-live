@@ -24,13 +24,15 @@ const Cart = ({
     clearCart,
 }) => {
     const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
+
     const price = () => {
         let price = 0;
         if (cartItems) {
             cartItems.forEach((item) => (price += item.price * item.quantity));
         }
 
-        return price;
+        // Multiply by 100 to shift the decimal places to the right, round, then shift them back to the left
+        return Math.round(price * 100) / 100;
     };
 
     const totalPrice = () => {
@@ -39,7 +41,7 @@ const Cart = ({
             cartItems.forEach((item) => (price += item.price * item.quantity));
         }
 
-        return price + 5.99; // Add shipping cost to the total price
+        return (price + 5.99).toFixed(2); // Add shipping cost to the total price and round to two decimal places
     };
 
     return (
@@ -211,7 +213,7 @@ const Cart = ({
                                 </div>
                             </div>
 
-                            <div className="col-lg-4">
+                            <div className="col-lg-5">
                                 <div className="divider center_icon mt-50 mb-50">
                                     <i className="fi-rs-fingerprint"></i>
                                 </div>

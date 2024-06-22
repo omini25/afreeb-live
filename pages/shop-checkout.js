@@ -22,6 +22,7 @@ import {useMediaQuery} from "react-responsive";
 
 
 
+
 const Cart = ({
     openCart,
     cartItems,
@@ -33,6 +34,13 @@ const Cart = ({
     clearCart,
 }) => {
     const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
+    const [isNotMobile, setIsNotMobile] = useState(false);
+
+    useEffect(() => {
+        const isNotMobile = window.matchMedia('(min-width: 768px)').matches;
+        setIsNotMobile(isNotMobile);
+    }, []);
+
     const price = () => {
         let price = 0;
         cartItems.forEach((item) => (price += item.price * item.quantity));
@@ -146,7 +154,8 @@ const Cart = ({
     return (
         <>
             <Layout parent="Home" sub="Shop" subChild="Checkout">
-                <section className="mt-50 mb-50 " style={{paddingLeft: '50px', paddingRight: '50px'}}>
+                <section
+                    className={`mt-50 mb-50 ${isNotMobile ? 'style={{paddingLeft: "50px", paddingRight: "50px"}}' : ''}`}>
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-8 mb-40">
@@ -289,9 +298,9 @@ const Cart = ({
                                                     aria-controls="collapseAddress"
                                                     htmlFor="differentaddress"
                                                 >
-                                                        <span>
-                                                            Use Shipping Address for Billing
-                                                        </span>
+                                                            <span>
+                                                                Use Shipping Address for Billing
+                                                            </span>
                                                 </label>
                                             </div>
                                         </div>
@@ -308,7 +317,7 @@ const Cart = ({
                                         <>
                                             <div className="form-group">
                                                 <div className="custom_select">
-                                                <select className="form-control select-active">
+                                                    <select className="form-control select-active">
                                                         <option value="">Select an option...</option>
                                                         <option value="US">USA (US)</option>
                                                     </select>
@@ -354,12 +363,20 @@ const Cart = ({
                                         >
                                             <tbody>
                                             {cartItems && cartItems.map((item, i) => (
-                                                <tr key={i}
-                                                    >
-                                                    <td className="image product-thumbnail">
+                                                <tr key={i} style={isMobile ? {display: 'flex', flexDirection: 'row'} : {}}
+                                                >
+                                                    <td className="">
                                                         <img
                                                             src={`${assetServer}/images/products/${item.image}`}
                                                             alt="#"
+                                                            style={
+                                                            isMobile ?
+                                                            {
+                                                                width: '300%',
+                                                                height: 'auto'
+                                                            }
+                                                            : {}
+                                                            }
                                                         />
                                                     </td>
                                                     <td>

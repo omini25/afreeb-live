@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Layout from "../components/layout/Layout";
 import { connect } from 'react-redux';
-import { clearCart } from '../redux/action/cart'; // Import the clearCart action
+import { clearCart } from '../redux/action/cart';
+import { FaRegSmileBeam } from 'react-icons/fa';
 
 const OrderSuccessful = ({ clearCart }) => {
     const router = useRouter();
@@ -15,10 +16,10 @@ const OrderSuccessful = ({ clearCart }) => {
     }, [sessionId, clearCart]);
 
     return (
-        <Layout parent="Home" sub="Pages">
-            <div>
-                <h1>Order Successful</h1>
-                <p>Thank you for your purchase!</p>
+        <Layout>
+            <div style={{textAlign: 'center', marginTop: '50px', marginBottom: '50px'}}>
+                <h1>Order Successful <FaRegSmileBeam /></h1>
+                <p>Thank you for your purchase! <FaRegSmileBeam /></p>
                 <p>Your order ID is: {order_id}</p>
                 {sessionId && <p>Your session ID is: {sessionId}</p>}
             </div>
