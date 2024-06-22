@@ -40,6 +40,7 @@ const Cart = ({
 
     const router = useRouter();
     const [defaultAddress, setDefaultAddress] = useState(null);
+    const userInfo = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('userInfo')) : null;
 
     useEffect(() => {
         const fetchDefaultAddress = async () => {
@@ -76,14 +77,11 @@ const Cart = ({
         try {
             const response = await axios.post(`${mainServer}/address/${userInfo.user.id}`, newAddress);
 
-            console.log(response.data);
-
-            // Close the modal
-            closeModal();
-
-            // Refresh the address list
-            refreshAddresses();
-
+            // If the request is successful, display a success toast and reload the page
+            if (response.status === 200) {
+                toast.success('Address added successfully.');
+                window.location.reload();
+            }
         } catch (error) {
             console.error('Failed to add address:', error);
         }
@@ -256,7 +254,7 @@ const Cart = ({
                                             />
                                         </div>
 
-                                        <div className="col-lg-12 col-md-12">
+                                        <div className="">
                                             <button className="submit submit-auto-width" type="submit">Add Address
                                             </button>
                                         </div>
