@@ -18,6 +18,7 @@ import {server} from "../server";
 import {mainServer} from "../mainServer";
 import { Elements, useStripe, useElements } from '@stripe/react-stripe-js';
 import CheckoutForm from "../components/ecommerce/CheckoutForm";
+import {useMediaQuery} from "react-responsive";
 
 
 
@@ -31,6 +32,7 @@ const Cart = ({
     deleteFromCart,
     clearCart,
 }) => {
+    const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
     const price = () => {
         let price = 0;
         cartItems.forEach((item) => (price += item.price * item.quantity));
@@ -352,8 +354,8 @@ const Cart = ({
                                         >
                                             <tbody>
                                             {cartItems && cartItems.map((item, i) => (
-
-                                                <tr key={i}>
+                                                <tr key={i}
+                                                    >
                                                     <td className="image product-thumbnail">
                                                         <img
                                                             src={`${assetServer}/images/products/${item.image}`}
@@ -367,22 +369,7 @@ const Cart = ({
                                                                     item.product_name
                                                                 }
                                                             </a>
-                                                            {/*<div className="product-rate-cover">*/}
-                                                            {/*    <div className="product-rate d-inline-block">*/}
-                                                            {/*        <div*/}
-                                                            {/*            className="product-rating"*/}
-                                                            {/*            style={{*/}
-                                                            {/*                width: "90%",*/}
-                                                            {/*            }}*/}
-                                                            {/*        ></div>*/}
-                                                            {/*    </div>*/}
-                                                            {/*    <span className="font-small ml-5 text-muted">*/}
-                                                            {/*                {" "}*/}
-                                                            {/*        (4.0)*/}
-                                                            {/*            </span>*/}
-                                                            {/*</div>*/}
                                                         </h6>
-                                                        {" "}
                                                     </td>
                                                     <td>
                                                         <h6 className="text-muted pl-20 pr-20">
@@ -400,9 +387,7 @@ const Cart = ({
                                                         </h4>
                                                     </td>
                                                 </tr>
-
                                             ))}
-
                                             </tbody>
                                         </table>
                                     </div>

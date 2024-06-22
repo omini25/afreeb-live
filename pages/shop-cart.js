@@ -97,12 +97,18 @@ const Cart = ({
                                                 <td className="">
                                                     <img
                                                         src={`${assetServer}/images/products/${item.image}`}
-                                                        style={{ width: '50%', height: 'auto' }} // Adjust the percentage as needed
-                                                     alt={item.product_name}
+                                                        style={{
+                                                            width: '50%',
+                                                            height: 'auto'
+                                                        }} // Adjust the percentage as needed
+                                                        alt={item.product_name}
                                                     />
                                                     <p className="product-name mt-2">
                                                         <Link legacyBehavior href={`/products/${item.product_name}`}>
-                                                            <a style={{ wordWrap: 'break-word' }}>
+                                                            <a style={isMobile ? {
+                                                                wordWrap: 'break-all',
+                                                                width: '50%'
+                                                            } : {wordWrap: 'break-all'}}>
                                                                 {item.product_name}
                                                             </a>
                                                         </Link>
@@ -122,7 +128,8 @@ const Cart = ({
                                                     className="text-center detail-info"
                                                     data-title="Stock"
                                                 >
-                                                    <div className="detail-extralink mr-15">
+                                                    <div className="detail-extralink"
+                                                         style={{marginRight: '40px'}}> {/* Increase the value as needed */}
                                                         <div className="detail-qty border radius ">
                                                             <a
                                                                 onClick={(e) =>
@@ -204,54 +211,11 @@ const Cart = ({
                                 </div>
                             </div>
 
-                            <div className="col-lg-5">
+                            <div className="col-lg-4">
                                 <div className="divider center_icon mt-50 mb-50">
                                     <i className="fi-rs-fingerprint"></i>
                                 </div>
                                 <div className="row mb-50">
-                                    {/*<div className="col-lg-6 col-md-12">*/}
-                                    {/*    <div className="heading_s1 mb-3">*/}
-                                    {/*        <h4>Shipping Fee</h4>*/}
-                                    {/*    </div>*/}
-                                    {/*    <p className="mt-15 mb-30">*/}
-                                    {/*        Flat rate:*/}
-                                    {/*        <span className="font-xl text-brand fw-900">*/}
-                                    {/*            $5.99*/}
-                                    {/*        </span>*/}
-                                    {/*    </p>*/}
-
-                                    {/*    <div className="mb-30 mt-50">*/}
-                                    {/*        <div className="heading_s1 mb-3">*/}
-                                    {/*            <h4>Apply Coupon</h4>*/}
-                                    {/*        </div>*/}
-                                    {/*        <div className="total-amount">*/}
-                                    {/*            <div className="left">*/}
-                                    {/*                <div className="coupon">*/}
-                                    {/*                    <form*/}
-                                    {/*                        action="#"*/}
-                                    {/*                        target="_blank"*/}
-                                    {/*                    >*/}
-                                    {/*                        <div className="form-row row justify-content-center">*/}
-                                    {/*                            <div className="form-group col-lg-6">*/}
-                                    {/*                                <input*/}
-                                    {/*                                    className="font-medium"*/}
-                                    {/*                                    name="Coupon"*/}
-                                    {/*                                    placeholder="Enter Your Coupon"*/}
-                                    {/*                                />*/}
-                                    {/*                            </div>*/}
-                                    {/*                            <div className="form-group col-lg-6">*/}
-                                    {/*                                <button className="btn  btn-sm">*/}
-                                    {/*                                    <i className="fi-rs-label mr-10"></i>*/}
-                                    {/*                                    Apply*/}
-                                    {/*                                </button>*/}
-                                    {/*                            </div>*/}
-                                    {/*                        </div>*/}
-                                    {/*                    </form>*/}
-                                    {/*                </div>*/}
-                                    {/*            </div>*/}
-                                    {/*        </div>*/}
-                                    {/*    </div>*/}
-                                    {/*</div>*/}
                                     <div className="col-lg-12 col-md-12">
                                         <div className="border p-md-4 p-30 border-radius cart-totals">
                                             <div className="heading_s1 mb-3">
@@ -260,17 +224,17 @@ const Cart = ({
                                             <div className="table-responsive">
                                                 <table className="table">
                                                     <tbody>
-                                                    <tr>
+                                                    <tr style={isMobile ? {display: 'flex', flexDirection: 'row'} : {}}>
                                                         <td className="cart_total_label">
                                                             Cart Subtotal
                                                         </td>
                                                         <td className="cart_total_amount">
-                                                                <span className="font-lg fw-900 text-brand">
-                                                                    $ {price()}
-                                                                </span>
+                                                            <span className="font-lg fw-900 text-brand">
+                                                                $ {price()}
+                                                            </span>
                                                         </td>
                                                     </tr>
-                                                    <tr>
+                                                    <tr style={isMobile ? {display: 'flex', flexDirection: 'row'} : {}}>
                                                         <td className="cart_total_label">
                                                             Shipping
                                                         </td>
@@ -279,7 +243,7 @@ const Cart = ({
                                                             $5.99
                                                         </td>
                                                     </tr>
-                                                    <tr>
+                                                    <tr style={isMobile ? {display: 'flex', flexDirection: 'row'} : {}}>
                                                         <td className="cart_total_label">
                                                             Total
                                                         </td>
