@@ -140,17 +140,17 @@ function Signup() {
                                             </form>
                                             <div className="">
                                                 <div className="card-login mt-10">
-                                                    <a href="#" className="social-login facebook-login">
-                                                        <img src="/assets/imgs/theme/icons/logo-facebook.svg" alt=""/>
-                                                        <span>Continue with Facebook</span>
-                                                    </a>
+                                                    {/*<a href="#" className="social-login facebook-login">*/}
+                                                    {/*    <img src="/assets/imgs/theme/icons/logo-facebook.svg" alt=""/>*/}
+                                                    {/*    <span>Login with Facebook</span>*/}
+                                                    {/*</a>*/}
                                                     <a href="#" className="social-login google-login">
                                                         <img src="/assets/imgs/theme/icons/logo-google.svg" alt=""/>
-                                                        <span>Continue with Google</span>
+                                                        <span>Login with Google</span>
                                                     </a>
                                                     <a href="#" className="social-login apple-login">
                                                         <img src="/assets/imgs/theme/icons/logo-apple.svg" alt=""/>
-                                                        <span>Continue with Apple</span>
+                                                        <span>Login with Apple</span>
                                                     </a>
                                                 </div>
                                             </div>
