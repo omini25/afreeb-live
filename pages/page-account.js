@@ -327,7 +327,7 @@ function Account() {
                                                                 </thead>
                                                                 <tbody>
                                                                 {orders && orders.orders && Array.isArray(orders.orders) && orders.orders.map((order) => (
-                                                                    <tr key={order.id}>
+                                                                    <tr key={order.id} style={isMobile ? {display: 'flex', flexDirection: 'row'} : {}}>
                                                                         <td>#{order.id}</td>
                                                                         <td>{new Date(order.created_at).toLocaleDateString()}</td>
                                                                         <td>{order.status}</td>
