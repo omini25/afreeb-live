@@ -11,6 +11,7 @@ import AddAddress from "../components/ecommerce/AddAddress";
 import CreateGroup from "../components/ecommerce/CreateGroup";
 import JoinGroup from "../components/ecommerce/JoinGroup";
 import EditAddress from "../components/ecommerce/EditAddress";
+import {useMediaQuery} from "react-responsive";
 
 function Account() {
     const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -21,6 +22,7 @@ function Account() {
     const userId = userInfo.user ? userInfo.user.id : null;
     const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
     const [showJoinGroupModal, setShowJoinGroupModal] = useState(false);
+    const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [currentAddress, setCurrentAddress] = useState(null);
@@ -327,7 +329,22 @@ function Account() {
                                                                 </thead>
                                                                 <tbody>
                                                                 {orders && orders.orders && Array.isArray(orders.orders) && orders.orders.map((order) => (
-                                                                    <tr key={order.id} style={isMobile ? {display: 'flex', flexDirection: 'row'} : {}}>
+                                                                    <tr
+                                                                        key={order.id}
+                                                                        style={
+                                                                            isMobile
+                                                                                ? {
+                                                                                    display: 'flex',
+                                                                                    flexDirection: 'row',
+                                                                                    borderTop: '1px solid #000',
+                                                                                    borderBottom: '1px solid #000'
+                                                                                }
+                                                                                : {
+                                                                                    borderTop: '1px solid #000',
+                                                                                    borderBottom: '1px solid #000'
+                                                                                }
+                                                                        }
+                                                                    >
                                                                         <td>#{order.id}</td>
                                                                         <td>{new Date(order.created_at).toLocaleDateString()}</td>
                                                                         <td>{order.status}</td>
@@ -345,9 +362,9 @@ function Account() {
                                             </div>
 
 
-
-                                            <div className={activeIndex === 6 ? "tab-pane fade active show" : "tab-pane fade "} >
-                                                <div className="card">
+                                            <div
+                                                className={activeIndex === 6 ? "tab-pane fade active show" : "tab-pane fade "}>
+                                            <div className="card">
                                                     <div className="card-header">
                                                         <div
                                                             className="card-header d-flex justify-content-between align-items-center">
