@@ -8,6 +8,7 @@ import {toast} from "react-toastify";
 import { useRouter } from "next/router";
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import {assetServer} from "../../assetServer";
+import { deleteFromCart } from '../../redux/action/cart';
 
 
 const Header = ({
@@ -20,7 +21,7 @@ const Header = ({
     const router = useRouter();
     const [isToggled, setToggled] = useState(false);
     const [scroll, setScroll] = useState(0);
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const [cart, setCart] = useState([]);
 
     useEffect(() => {
@@ -60,6 +61,11 @@ const Header = ({
                 subCategory: subCategory,
             },
         });
+    };
+
+    const handleRemoveFromCart = (id) => {
+        dispatch(deleteFromCart(id));
+        setCart(cart.filter(item => item.id !== id));
     };
 
     // let cart = localStorage.getItem('cart');
@@ -231,11 +237,9 @@ const Header = ({
                                                                     </h3>
                                                                 </div>
                                                                 <div className="shopping-cart-delete">
-                                                                    <Link legacyBehavior href="/#">
-                                                                        <a>
-                                                                            <i className="fi-rs-cross-small"></i>
-                                                                        </a>
-                                                                    </Link>
+                                                                    <a onClick={() => handleRemoveFromCart(item.id)}>
+                                                                        <i className="fi-rs-cross-small"></i>
+                                                                    </a>
                                                                 </div>
                                                             </li>
                                                         ))

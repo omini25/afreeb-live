@@ -43,7 +43,12 @@ const Cart = ({
 
     const price = () => {
         let price = 0;
-        cartItems.forEach((item) => (price += item.price * item.quantity));
+        cartItems.forEach((item) => {
+            price += item.price * item.quantity;
+        });
+
+        // Round the price to two decimal places
+        price = Math.round(price * 100) / 100;
 
         return price;
     };
@@ -397,11 +402,20 @@ const Cart = ({
                                                         </h6>
                                                     </td>
                                                     <td>
-                                                        <h4 className="text-brand">
+                                                        <h4 className="text-brand" style={{
+                                                            display: 'none',
+                                                            '@media (min-width: 768px)': {display: 'block'}
+                                                        }}>
                                                             $
-                                                            {item.quantity *
-                                                                item.price}
+                                                            {(item.quantity * item.price).toFixed(2)}
                                                         </h4>
+                                                        <h5 className="text-brand" style={{
+                                                            display: 'block',
+                                                            '@media (min-width: 768px)': {display: 'none'}
+                                                        }}>
+                                                            $
+                                                            {(item.quantity * item.price).toFixed(2)}
+                                                        </h5>
                                                     </td>
                                                 </tr>
                                             ))}

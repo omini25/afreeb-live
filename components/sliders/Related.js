@@ -6,6 +6,7 @@ import SingleProduct from "./../ecommerce/SingleProduct";
 import axios from "axios";
 import {server} from "../../config";
 
+
 SwiperCore.use([Navigation]);
 
 const RelatedSlider = ({ vendorId }) => {
@@ -27,16 +28,27 @@ const RelatedSlider = ({ vendorId }) => {
         fetchProduct();
     }, [vendorId]);
 
-    console.log(product)
+    const [isMobile, setIsMobile] = useState(false);
 
-    console.log(vendorId)
+    useEffect(() => {
+        const checkMobile = () => {
+            const mq = window.matchMedia('(max-width: 640px)');
+            setIsMobile(mq.matches);
+        };
+
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+
+        return () => {
+            window.removeEventListener('resize', checkMobile);
+        };
+    }, []);
 
     return (
         <>
             <Swiper
-                slidesPerView={3}
+                slidesPerView={isMobile ? 2 : 4}
                 spaceBetween={30}
-
                 navigation={{
                     prevEl: ".custom_prev_n",
                     nextEl: ".custom_next_n",

@@ -13,6 +13,7 @@ import RelatedSlider from "../sliders/Related";
 import ThumbSlider from "../sliders/Thumb";
 import Link from "next/link";
 import Router from 'next/router';
+import { useMediaQuery } from 'react-responsive';
 
 const ProductDetails = ({
     product,
@@ -25,6 +26,7 @@ const ProductDetails = ({
     quickView,
 }) => {
     const [quantity, setQuantity] = useState(1);
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
     
 
     const handleCart = (product) => {
@@ -66,7 +68,15 @@ const ProductDetails = ({
                                     <div className="col-md-6 col-sm-12 col-xs-12">
                                         <div className="detail-info  pr-30 pl-30">
                                             {/*<span className="stock-status out-stock"> Sale Off </span>*/}
-                                            <h2 className="title-detail">{product.product_name}</h2>
+                                            <h2 className="title-detail" style={{
+                                                display: 'none',
+                                                '@media (min-width: 768px)': {display: 'block'}
+                                            }}>{product.product_name}</h2>
+                                            <h5 className="title-detail" style={{
+                                                display: 'block',
+                                                '@media (min-width: 768px)': {display: 'none'}
+                                            }}>{product.product_name}</h5>
+
                                             {/*<div className="product-detail-rating">*/}
                                             {/*    <div className="product-rate-cover text-end">*/}
                                             {/*        <div className="product-rate d-inline-block">*/}
@@ -77,7 +87,8 @@ const ProductDetails = ({
                                             {/*</div>*/}
                                             <div className="clearfix product-price-cover">
                                                 <div className="product-price primary-color float-left">
-                                                    <span className="current-price  text-brand">${product.price}</span>
+                                                    <span className="current-price text-brand"
+                                                          style={{fontSize: isMobile ? '25px' : 'inherit'}}>${product.price}</span>
                                                     {/*<span>*/}
                                                     {/*    <span className="save-price font-md color3 ml-15">{product.discount.percentage}% Off</span>*/}
                                                     {/*    <span className="old-price font-md ml-15">{product.oldPrice ? `$ ${product.oldPrice}` : null}</span>*/}
@@ -153,7 +164,9 @@ const ProductDetails = ({
                                             </ul>
                                             <div className="mobile-social-icon">
                                                 <h5 className="mb-15 pt-10 text-grey-4">Share Product</h5>
-                                                <Link legacyBehavior href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(product.product_name)}`} target="_blank">
+                                                <Link legacyBehavior
+                                                      href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(product.product_name)}`}
+                                                      target="_blank">
                                                     <a>
                                                         <img
                                                             src="/assets/imgs/theme/icons/icon-facebook.svg"
@@ -161,7 +174,9 @@ const ProductDetails = ({
                                                         />
                                                     </a>
                                                 </Link>
-                                                <Link legacyBehavior href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(product.product_name)}`} target="_blank">
+                                                <Link legacyBehavior
+                                                      href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(product.product_name)}`}
+                                                      target="_blank">
                                                     <a>
                                                         <img
                                                             src="/assets/imgs/theme/icons/icon-twitter.svg"
@@ -169,7 +184,9 @@ const ProductDetails = ({
                                                         />
                                                     </a>
                                                 </Link>
-                                                <Link legacyBehavior href={`http://instagram.com/share?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(product.product_name)}`} target="_blank">
+                                                <Link legacyBehavior
+                                                      href={`http://instagram.com/share?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(product.product_name)}`}
+                                                      target="_blank">
                                                     <a>
                                                         <img
                                                             src="/assets/imgs/theme/icons/icon-instagram.svg"
@@ -184,7 +201,7 @@ const ProductDetails = ({
 
                                 {quickView ? null : (
                                     <>
-                                        <ProductTab product={product} />
+                                        <ProductTab product={product}/>
                                         <div className="row mt-60">
                                             <div className="col-12">
                                                 <h3 className="section-title style-1 mb-30">Related products</h3>

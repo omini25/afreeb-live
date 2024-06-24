@@ -9,7 +9,7 @@ function About() {
                         <div className="col-xl-10 col-lg-12 m-auto">
                             <section className="row align-items-center mb-50">
                                 <div className="col-lg-6">
-                                    <img src="/assets/imgs/page/about-1.png" alt="" className="border-radius-15 mb-md-3 mb-lg-0 mb-sm-4" />
+                                    <img src="assets/landing/about.jpg" alt="" className="border-radius-15 mb-md-3 mb-lg-0 mb-sm-4" />
                                 </div>
                                 <div className="col-lg-6">
                                     <div className="pl-25">

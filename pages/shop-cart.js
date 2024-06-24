@@ -165,8 +165,7 @@ const Cart = ({
                                                 >
                                                     <h4 className="text-body">
                                                         $
-                                                        {item.quantity *
-                                                            item.price}
+                                                        {(item.quantity * item.price).toFixed(2)}
                                                     </h4>
                                                 </td>
                                                 <td

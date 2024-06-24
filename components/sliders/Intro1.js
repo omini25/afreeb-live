@@ -23,11 +23,11 @@ const Intro1 = () => {
         };
     }, []);
 
-    const bgImage1 = isMobile ? "url(assets/afreebmart-mobile-slider.png)" : "url(assets/wb.png)";
+    const bgImage1 = isMobile ? "url(assets/afreebmart-mobile-1.png)" : "url(assets/wb.png)";
 
-    const bgImage2 = isMobile? "url(assets/afreebmart-mobile-slider-1.png)" : "url(assets/afreebmart-slide2.png)";
+    const bgImage2 = isMobile? "url(assets/afreebmart-mobile-2.png)" : "url(assets/afreebmart-slide2.png)";
 
-    const bgImage3 = isMobile? "url(assets/afreebmart-mobile-slider-2.png)" : "url(assets/afreebmart-slide3.png)";
+    const bgImage3 = isMobile? "url(assets/afreebmart-mobile-3.png)" : "url(assets/afreebmart-slide3.png)";
 
 
     return (
@@ -55,14 +55,14 @@ const Intro1 = () => {
                         }}
                     >
                         <div
-                            // style={{
-                            //     position: 'absolute',
-                            //     top: 0,
-                            //     left: 0,
-                            //     height: '100%',
-                            //     width: '100%',
-                            //     // backgroundColor: 'rgba(0, 0, 0, 0.3)' // Change the color and opacity as needed
-                            // }}
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                height: '100%',
+                                width: '100%',
+                                backgroundColor: 'rgba(0, 0, 0, 0.3)' // Change the color and opacity as needed
+                            }}
                         />
                         <div className="slider-content">
                             <h1 className="display-2 mb-40" style={{color: '#6de768'}}>
@@ -70,7 +70,7 @@ const Intro1 = () => {
                                 <br/>
                                 and Fresh Groceries
                             </h1>
-                            <p className="mb-65">
+                            <p className="mb-65 text-white">
                                 Better ingredients, better food, and beverages, at low prices
                             </p>
                             <div className="form-subcriber d-flex justify-content-center">
@@ -91,14 +91,14 @@ const Intro1 = () => {
                         }}
                     >
                         <div
-                            // style={{
-                            //     position: 'absolute',
-                            //     top: 0,
-                            //     left: 0,
-                            //     height: '100%',
-                            //     width: '100%',
-                            //     // backgroundColor: 'rgba(0, 0, 0, 0.3)' // Change the color and opacity as needed
-                            // }}
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                height: '100%',
+                                width: '100%',
+                                backgroundColor: 'rgba(0, 0, 0, 0.3)' // Change the color and opacity as needed
+                            }}
                         />
                         <div className="slider-content">
                             <h1 className="display-2 mb-40" style={{color: '#6de768'}}>
@@ -106,7 +106,7 @@ const Intro1 = () => {
                                 <br/>
                                 Best Deals
                             </h1>
-                            <p className="mb-65">
+                            <p className="mb-65 text-white">
                                 Enjoy amazing deals on your favorite products
                             </p>
                             <div className="form-subcriber d-flex justify-content-center">
@@ -133,7 +133,7 @@ const Intro1 = () => {
                                 left: 0,
                                 height: '100%',
                                 width: '100%',
-                                // backgroundColor: 'rgba(0, 0, 0, 0.3)' // Change the color and opacity as needed
+                                backgroundColor: 'rgba(0, 0, 0, 0.3)' // Change the color and opacity as needed
                             }}
                         />
                         <div className="slider-content">
@@ -142,7 +142,7 @@ const Intro1 = () => {
                                 <br/>
                                 Delivered Fast
                             </h1>
-                            <p className="mb-65">
+                            <p className="mb-65 text-white">
                                 Enjoy amazing deals on your favorite products
                             </p>
                             <div className="form-subcriber d-flex justify-content-center">
