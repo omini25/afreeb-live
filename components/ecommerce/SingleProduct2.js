@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import { addToCart } from "../../redux/action/cart";
@@ -8,6 +8,10 @@ import { openQuickView } from "../../redux/action/quickViewAction";
 import { addToWishlist } from "../../redux/action/wishlistAction";
 import {assetServer} from "../../assetServer";
 import moment from 'moment';
+import Router from "next/router";
+import axios from "axios";
+import {server} from "../../server";
+import {useMediaQuery} from "react-responsive";
 
 const SingleProduct2 = ({
     product,
@@ -16,7 +20,32 @@ const SingleProduct2 = ({
     addToWishlist,
     openQuickView,
 }) => {
-    
+
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+
+    const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('userInfo')) || {});
+
+    const [isInGroup, setIsInGroup] = useState(false);
+
+    const userId = userInfo.user ? userInfo.user.id : null;
+
+    useEffect(() => {
+        const checkGroup = async () => {
+            try {
+                const response = await axios.get(`${server}/users/${userInfo.user.id}/products/${product.id}/check-group`);
+                if (response.data.message === 'User is in the same group as the product') {
+                    setIsInGroup(true);
+                }
+            } catch (error) {
+                console.error('Failed to check group:', error);
+            }
+        };
+
+        if (userId) {
+            checkGroup();
+        }
+    }, [userId, product.id]);
+
 
     const handleCart = (product) => {
         addToCart(product);
@@ -139,17 +168,49 @@ const SingleProduct2 = ({
                         <span className="font-xs text-heading"> Sold: 90/120</span>
                     </div>
 
+                    {/*{product.group === "1" ? (*/}
+                    {/*    <a className="btn w-100 hover-up">*/}
+                    {/*        Group*/}
+                    {/*    </a>*/}
+                    {/*) : (*/}
+                    {/*    <a*/}
+                    {/*        className="btn w-100 hover-up"*/}
+                    {/*        onClick={(e) => handleCart(product)}*/}
+                    {/*    >*/}
+                    {/*        <i className="fi-rs-shopping-cart mr-5"></i> Add To Cart*/}
+                    {/*    </a>*/}
+                    {/*)}*/}
+
                     {product.group === "1" ? (
-                        <a className="btn w-100 hover-up">
-                            Group
-                        </a>
+                        <div>
+                            {userId && isInGroup ? (
+                                <div className="add-cart">
+                                    <a
+                                        className="btn w-100 hover-up"
+                                        onClick={(e) => handleCart(product)}
+                                    >
+                                        <i className="fi-rs-shopping-cart mr-5"></i> {isMobile ? null : 'Add'}
+                                    </a>
+                                </div>
+                            ) : (
+                                <div className="add-cart">
+                                    <a className="btn w-100 hover-up"
+                                        onClick={() => Router.push('/page-account')}
+                                    >
+                                        Group
+                                    </a>
+                                </div>
+                            )}
+                        </div>
                     ) : (
-                        <a
-                            className="btn w-100 hover-up"
-                            onClick={(e) => handleCart(product)}
-                        >
-                            <i className="fi-rs-shopping-cart mr-5"></i> Add To Cart
-                        </a>
+                        <div className="add-cart">
+                            <a
+                                className="btn w-100 hover-up"
+                                onClick={(e) => handleCart(product)}
+                            >
+                                <i className="fi-rs-shopping-cart mr-5"></i> {isMobile ? null : 'Add'}
+                            </a>
+                        </div>
                     )}
                 </div>
             </div>
