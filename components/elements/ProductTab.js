@@ -2,9 +2,12 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {server} from "../../server";
 import StarRatings from "react-star-ratings/build/star-ratings";
+import {useRouter} from "next/router";
 
 const ProductTab = ({product}) => {
     const [activeIndex, setActiveIndex] = useState(1);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const router = useRouter();
 
     const handleOnClick = (index) => {
         setActiveIndex(index);
@@ -185,19 +188,25 @@ const ProductTab = ({product}) => {
                             {/*<img src="/assets/imgs/vendor/vendor-18.svg" alt="" />*/}
                             <div className="vendor-name ml-15">
                                 <h6>
-                                    <a href="vendor-details-2.html">{product.store_name}</a>
+                                    <a href={`/vendor/${product.vendor_id}`}>{product.store_name}</a>
                                 </h6>
-                                <div className="product-rate-cover text-end">
-                                    <div className="product-rate d-inline-block">
-                                        <StarRatings
-                                            rating={averageRating}
-                                            numberOfStars={5}
-                                            starDimension="20px"
-                                            starSpacing="2px"
-                                            starRatedColor="gold"
-                                        />
-                                    </div>
-                                    {/*<span className="font-small ml-5 text-muted"> (32 reviews)</span>*/}
+                                {/*<div className=" text-end">*/}
+                                {/*    <div className="product-rate d-inline-block">*/}
+                                {/*        <StarRatings*/}
+                                {/*            rating={averageRating}*/}
+                                {/*            numberOfStars={5}*/}
+                                {/*            starDimension="20px"*/}
+                                {/*            starSpacing="2px"*/}
+                                {/*            starRatedColor="gold"*/}
+                                {/*        />*/}
+                                {/*    </div>*/}
+                                {/*    /!*<span className="font-small ml-5 text-muted"> (32 reviews)</span>*!/*/}
+                                {/*</div>*/}
+
+                                <div className="form-group">
+                                    <button  className="button button-contactForm">
+                                        Message Vendor
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -235,36 +244,49 @@ const ProductTab = ({product}) => {
                                     <h4 className="mb-15">Add a review</h4>
 
                                     <div className="row">
-                                        <div className="col-lg-8 col-md-12">
-
-                                            <form className="form-contact comment_form" onSubmit={handleSubmit}
-                                                  id="commentForm">
-                                                <StarRatings
-                                                    rating={averageRating}
-                                                    changeRating={(newRating) => {
-                                                        setAverageRating(newRating);
-                                                    }}
-                                                    numberOfStars={5}
-                                                    starDimension="20px"
-                                                    starSpacing="2px"
-                                                    starRatedColor="gray"
-                                                />
-                                                <div className="row">
-                                                    <div className="col-12">
-                                                        <div className="form-group">
+                                        <div className="comment-form col-lg-8">
+                                            {isLoggedIn ? (
+                                                <form className="form-contact comment_form" onSubmit={handleSubmit}
+                                                      id="commentForm">
+                                                    <StarRatings
+                                                        rating={averageRating}
+                                                        changeRating={(newRating) => {
+                                                            setAverageRating(newRating);
+                                                        }}
+                                                        numberOfStars={5}
+                                                        starDimension="20px"
+                                                        starSpacing="2px"
+                                                        starRatedColor="gray"
+                                                    />
+                                                    <div className="row">
+                                                        <div className="col-12">
+                                                            <div className="form-group">
                                                             <textarea className="form-control w-100" name="comment"
                                                                       id="comment" cols="30" rows="9"
                                                                       placeholder="Write Comment">
                                                             </textarea>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div className="form-group">
-                                                    <button type="submit" className="button button-contactForm">
-                                                        Submit Review
+                                                    <div className="form-group">
+                                                        <button type="submit" className="button button-contactForm">
+                                                            Submit Review
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            ) : (
+                                                <div className="overlay">
+                                                    <button
+                                                        className="button button-contactForm"
+                                                        onClick={() => {
+                                                            router.push('/login'); // replace '/login' with your actual login route
+                                                        }}
+                                                    >
+                                                        Please login to leave a review
                                                     </button>
                                                 </div>
-                                            </form>
+
+                                            )}
                                         </div>
                                     </div>
                                 </div>

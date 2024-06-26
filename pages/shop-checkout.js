@@ -120,10 +120,10 @@ const Cart = ({
             event.preventDefault();
 
             // Check if there is a default address
-            // if (!defaultAddress) {
-            //     toast.error('No active address. Please enter an address or select an active address in your account.');
-            //     return; // Stop the order process
-            // }
+            if (!defaultAddress) {
+                toast.error('No active address. Please enter an address or select an active address in your account.');
+                return; // Stop the order process
+            }
 
             const productDetails = cartItems.map((item) => ({
                 name: item.product_name,

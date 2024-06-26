@@ -22,6 +22,7 @@ const SingleProduct = ({
                        }) => {
 
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+    const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('userInfo')) || {});
 
     const handleCart = (product) => {
         addToCart(product);
@@ -40,27 +41,30 @@ const SingleProduct = ({
     };
 
     const [isInGroup, setIsInGroup] = useState(false);
-    const userId = localStorage.getItem('user.id');
+
+    const userId = userInfo.user ? userInfo.user.id : null;
 
     useEffect(() => {
         const checkGroup = async () => {
             try {
-                const response = await axios.get(`${server}/groupProducts/${product.id}`);
-                console.log('API Response:', response);
-                if (response.data.flat()) {
+                const response = await axios.get(`${server}/users/${userInfo.user.id}/products/${product.id}/check-group`);
+                if (response.data.message === 'User is in the same group as the product') {
                     setIsInGroup(true);
                 }
-                console.log(response.data)
             } catch (error) {
                 console.error('Failed to check group:', error);
             }
-            console.log(response.data)
         };
 
         if (userId) {
             checkGroup();
         }
     }, [userId, product.id]);
+
+    console.log(isInGroup)
+    console.log(userId)
+    console.log(product.id)
+
 
     const [commentData, setCommentData] = useState(null);
     let averageRating = 0;

@@ -100,7 +100,7 @@ const ProductDetails = ({
                                                 display: 'none',
                                                 '@media (min-width: 768px)': {display: 'block'}
                                             }}>{product.product_name}</h1>
-                                            <h2 className="" style={{
+                                            <h2 className="title-detail" style={{
                                                 display: 'block',
                                                 '@media (min-width: 768px)': {display: 'none'}
                                             }}>{product.product_name}</h2>

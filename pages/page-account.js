@@ -230,12 +230,12 @@ function Account() {
     return (
         <>
             <Layout parent="Home" sub="Pages" subChild="Account">
-                <div className="page-content pt-100 pb-150">
+                <div className="page-content pt-50 pb-150">
                     <div className="container">
                         <div className="row">
-                            <div className="col-lg-10 m-auto">
+                            <div className="col-lg-12 m-auto">
                                 <div className="row">
-                                    <div className="col-md-3">
+                                    <div className="col-md-3" style={{display: isMobile ? 'none' : 'block'}}>
                                         <div className="dashboard-menu">
                                             <ul className="nav flex-column" role="tablist">
                                                 <li className="nav-item">
@@ -260,6 +260,12 @@ function Account() {
                                                        onClick={() => handleOnClick(3)}><i
                                                         className="fi-rs-shopping-cart-check mr-10"></i>Track Your Order</a>
                                                 </li>
+
+                                                <li className="nav-item">
+                                                    <a className={activeIndex === 7 ? "nav-link active" : "nav-link"}
+                                                       onClick={() => handleOnClick(7)}><i
+                                                        className="fi-rs-message-check mr-10"></i>Messages</a>
+                                                </li>
                                                 <li className="nav-item">
                                                     <a className={activeIndex === 4 ? "nav-link active" : "nav-link"}
                                                        onClick={() => handleOnClick(4)}><i
@@ -278,7 +284,7 @@ function Account() {
                                         </div>
                                     </div>
                                     <div className="col-lg-9">
-                                        <div className="tab-content account dashboard-content pl-50">
+                                    <div className="tab-content account dashboard-content">
                                             <div className={activeIndex === 1 ? "tab-pane fade active show" : "tab-pane fade "} >
                                                 <div className="card">
                                                     <div className="card-header">
@@ -402,7 +408,22 @@ function Account() {
                                                                 </thead>
                                                                 <tbody>
                                                                 {groupDetails && Array.isArray(groupDetails) && groupDetails.map((group, index) => (
-                                                                    <tr key={index}>
+                                                                    <tr key={index}
+                                                                        style={
+                                                                            isMobile
+                                                                                ? {
+                                                                                    display: 'flex',
+                                                                                    flexDirection: 'row',
+                                                                                    borderTop: '1px solid #000',
+                                                                                    borderBottom: '1px solid #000'
+                                                                                }
+                                                                                : {
+                                                                                    borderTop: '1px solid #000',
+                                                                                    borderBottom: '1px solid #000'
+                                                                                }
+                                                                        }
+                                                                    >
+
                                                                         <td>{group.name}</td>
                                                                         <td>#{group.group_id}</td>
                                                                         <td>{group.product_name}</td>

@@ -7,6 +7,10 @@ import { useRouter } from "next/router";
 const MobileMenu = ({ isToggled, toggleClick }) => {
     const router = useRouter();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const handleOrdersClick = () => {
+        setActiveIndex(2);
+    };
 
     useEffect(() => {
         const loggedIn = localStorage.getItem('isLoggedIn');
@@ -342,8 +346,10 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link legacyBehavior href="/page-account">
-                                                <a>Orders</a>
+                                            <Link legacyBehavior href="/page-account?tab=orders">
+                                                <a onClick={handleOrdersClick} className={activeIndex === 2 ? "nav-link active" : "nav-link"}>
+                                                    Orders
+                                                </a>
                                             </Link>
                                         </li>
                                         <li>
