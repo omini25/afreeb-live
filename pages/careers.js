@@ -27,7 +27,7 @@ const Careers = () => {
                                 <div className="vendor-title mb-5">
                                     <h5>Why Choose Afreebmart?</h5>
                                 </div>
-                                <div className="business-contain">
+                                <div className="business-contain mt-30">
                                     <div className="row">
                                         <div className="col-xxl-4">
                                             <div className="business-box">

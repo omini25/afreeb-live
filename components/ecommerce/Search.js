@@ -20,14 +20,20 @@ const Search = () => {
 
     const handleSearch = () => {
         let url = 'https://afreebmart.com/api/products?search=' + searchTerm;
-        if (selectedCategory) {
-            url += '&category=' + selectedCategory;
-        }
 
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                // handle the data
+                // Navigate to the shop-fullwidth page with the search term as a query parameter
+                router.push({
+                    pathname: '/shop-fullwidth',
+                    query: { searchTerm: searchTerm }
+                });
+                // Pass the search results as a prop
+                router.push({
+                    pathname: '/shop-fullwidth',
+                    props: { products: data }
+                });
             })
             .catch(error => console.error('Error:', error));
 
@@ -44,18 +50,12 @@ const Search = () => {
     return (
         <>
             <form>
-                <select className="select-active" onChange={handleSelect}>
-                    <option value="">All Category</option>
-                    {categories.map((category, index) => (
-                        <option key={index} value={category.id}>{category.category_name}</option>
-                    ))}
-                </select>
                 <input
                     value={searchTerm}
                     onKeyDown={handleInput}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     type="text"
-                    placeholder="Search"
+                    placeholder="Search all products"
                 />
             </form>
         </>

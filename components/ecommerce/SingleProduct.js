@@ -11,6 +11,7 @@ import {server} from "../../server";
 import {assetServer} from "../../assetServer";
 import Router from 'next/router';
 import {useMediaQuery} from "react-responsive";
+import StarRatings from "react-star-ratings/build/star-ratings";
 
 const SingleProduct = ({
                            product,
@@ -26,6 +27,7 @@ const SingleProduct = ({
         addToCart(product);
         toast("Product added to Cart !");
     };
+
 
     const handleCompare = (product) => {
         addToCompare(product);
@@ -43,19 +45,49 @@ const SingleProduct = ({
     useEffect(() => {
         const checkGroup = async () => {
             try {
-                const response = await axios.get(`https://your-api-url/groups/${product.id}`);
-                if (response.data) {
+                const response = await axios.get(`${server}/groupProducts/${product.id}`);
+                console.log('API Response:', response);
+                if (response.data.flat()) {
                     setIsInGroup(true);
                 }
+                console.log(response.data)
             } catch (error) {
                 console.error('Failed to check group:', error);
             }
+            console.log(response.data)
         };
 
         if (userId) {
             checkGroup();
         }
     }, [userId, product.id]);
+
+    const [commentData, setCommentData] = useState(null);
+    let averageRating = 0;
+    if (commentData) {
+        averageRating = commentData.reduce((acc, comment) => acc + comment.rating, 0) / commentData.length;
+    } else {
+        console.log('commentData is null');
+    }
+
+    useEffect(() => {
+        const fetchCommentData = async () => {
+            try {
+                const response = await axios.get(`${server}/review/${product.id}`);
+                const data = response.data.reviews;
+                // data.forEach(comment => {
+                //     comment.id = comment.review.id;
+                //     comment.user_name = comment.review.user_name;
+                // });
+                setCommentData(data);
+            } catch (error) {
+                console.error('Error fetching comment data:', error);
+            }
+        };
+
+        fetchCommentData();
+    }, []);
+
 
 
     return (
@@ -139,18 +171,19 @@ const SingleProduct = ({
                         </Link>
                     </h2>
 
-                    {/*<div className="product-rate-cover">*/}
-                    {/*    <div className="product-rate d-inline-block">*/}
-                    {/*        <div*/}
-                    {/*            className="product-rating"*/}
-                    {/*            style={{width: "90%"}}*/}
-                    {/*        ></div>*/}
-                    {/*    </div>*/}
-                    {/*    <span className="font-small ml-5 text-muted">*/}
-                    {/*        {" "}*/}
-                    {/*                ({product.ratingScore})*/}
-                    {/*    </span>*/}
-                    {/*</div>*/}
+                    <div className="product-rate-cover">
+                        <StarRatings
+                            rating={averageRating}
+                            numberOfStars={5}
+                            starDimension="20px"
+                            starSpacing="2px"
+                            starRatedColor="gold"
+                        />
+                        {/*<span className="font-small ml-5 text-muted">*/}
+                        {/*    {" "}*/}
+                        {/*    {commentData ? `(${commentData.rating})` : '(No rating)'}*/}
+                        {/*</span>*/}
+                    </div>
 
                     <div>
                         <span className="font-small text-muted">

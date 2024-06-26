@@ -25,7 +25,6 @@ const ProductId = ({ query }) => {
         fetchProductDetails();
     }, [query.slug]);
 
-    console.log(product)
 
     if (loading) {
         return <div>Loading...</div>;

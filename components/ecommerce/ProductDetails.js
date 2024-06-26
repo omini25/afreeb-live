@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import {
@@ -14,6 +14,9 @@ import ThumbSlider from "../sliders/Thumb";
 import Link from "next/link";
 import Router from 'next/router';
 import { useMediaQuery } from 'react-responsive';
+import axios from "axios";
+import {server} from "../../server";
+import StarRatings from "react-star-ratings/build/star-ratings";
 
 const ProductDetails = ({
     product,
@@ -46,7 +49,32 @@ const ProductDetails = ({
 
     const inCart = cartItems.find((cartItem) => cartItem.id === product.id);
 
-    console.log(inCart);
+    const [commentData, setCommentData] = useState(null);
+
+    let averageRating = 0;
+    if (commentData) {
+        averageRating = commentData.reduce((acc, comment) => acc + comment.rating, 0) / commentData.length;
+    } else {
+        console.log('commentData is null');
+    }
+
+    useEffect(() => {
+        const fetchCommentData = async () => {
+            try {
+                const response = await axios.get(`${server}/review/${product.id}`);
+                const data = response.data.reviews;
+                // data.forEach(comment => {
+                //     comment.id = comment.review.id;
+                //     comment.user_name = comment.review.user_name;
+                // });
+                setCommentData(data);
+            } catch (error) {
+                console.error('Error fetching comment data:', error);
+            }
+        };
+
+        fetchCommentData();
+    }, []);
 
     return (
         <>
@@ -68,23 +96,31 @@ const ProductDetails = ({
                                     <div className="col-md-6 col-sm-12 col-xs-12">
                                         <div className="detail-info  pr-30 pl-30">
                                             {/*<span className="stock-status out-stock"> Sale Off </span>*/}
-                                            <h2 className="title-detail" style={{
+                                            <h1 className="title-detail" style={{
                                                 display: 'none',
                                                 '@media (min-width: 768px)': {display: 'block'}
-                                            }}>{product.product_name}</h2>
-                                            <h5 className="title-detail" style={{
+                                            }}>{product.product_name}</h1>
+                                            <h2 className="" style={{
                                                 display: 'block',
                                                 '@media (min-width: 768px)': {display: 'none'}
-                                            }}>{product.product_name}</h5>
+                                            }}>{product.product_name}</h2>
 
-                                            {/*<div className="product-detail-rating">*/}
-                                            {/*    <div className="product-rate-cover text-end">*/}
-                                            {/*        <div className="product-rate d-inline-block">*/}
-                                            {/*            <div className="product-rating" style={{ width: "90%" }}></div>*/}
-                                            {/*        </div>*/}
-                                            {/*        <span className="font-small ml-5 text-muted"> (32 reviews)</span>*/}
-                                            {/*    </div>*/}
-                                            {/*</div>*/}
+                                            <div className="product-detail-rating">
+                                                <div className="product-rate-cover text-end">
+                                                    <div className="d-inline-block">
+                                                        <div className="d-inline-block">
+                                                            <StarRatings
+                                                                rating={averageRating}
+                                                                numberOfStars={5}
+                                                                starDimension="20px"
+                                                                starSpacing="2px"
+                                                                starRatedColor="gold"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <span className="font-small ml-5 text-muted"> Reviews ({commentData ? commentData.length : 0})</span>
+                                                </div>
+                                            </div>
                                             <div className="clearfix product-price-cover">
                                                 <div className="product-price primary-color float-left">
                                                     <span className="current-price text-brand"
