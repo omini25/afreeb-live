@@ -176,13 +176,13 @@ const SingleProduct = ({
                     </h2>
 
                     <div className="product-rate-cover">
-                        <StarRatings
-                            rating={averageRating}
-                            numberOfStars={5}
-                            starDimension="20px"
-                            starSpacing="2px"
-                            starRatedColor="gold"
-                        />
+                        {/*<StarRatings*/}
+                        {/*    rating={averageRating}*/}
+                        {/*    numberOfStars={5}*/}
+                        {/*    starDimension="20px"*/}
+                        {/*    starSpacing="2px"*/}
+                        {/*    starRatedColor="gold"*/}
+                        {/*/>*/}
                         {/*<span className="font-small ml-5 text-muted">*/}
                         {/*    {" "}*/}
                         {/*    {commentData ? `(${commentData.rating})` : '(No rating)'}*/}
