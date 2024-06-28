@@ -27,6 +27,18 @@ function Account() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [currentAddress, setCurrentAddress] = useState(null);
 
+    const [isNavVisible, setIsNavVisible] = useState(false);
+    const [navClicked, setNavClicked] = useState(false);
+
+    const toggleNav = () => {
+        setIsNavVisible(!isNavVisible);
+    };
+
+    const handleNavClick = (index) => {
+        setNavClicked(true);
+        handleOnClick(index);
+    };
+
     const openModal = (addr) => {
         setCurrentAddress(addr);
         setModalIsOpen(true);
@@ -235,88 +247,150 @@ function Account() {
                         <div className="row">
                             <div className="col-lg-12 m-auto">
                                 <div className="row">
-                                    <div className="col-md-3" style={{display: isMobile ? 'none' : 'block'}}>
-                                        <div className="dashboard-menu">
-                                            <ul className="nav flex-column" role="tablist">
-                                                <li className="nav-item">
-                                                    <a className={activeIndex === 1 ? "nav-link active" : "nav-link"}
-                                                       onClick={() => handleOnClick(1)}><i
-                                                        className="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <a className={activeIndex === 2 ? "nav-link active" : "nav-link"}
-                                                       onClick={() => handleOnClick(2)}><i
-                                                        className="fi-rs-shopping-bag mr-10"></i>Orders</a>
-                                                </li>
+                                    <div className="col-md-3">
+                                        {isMobile ? (
+                                            <>
+                                                <button
+                                                    className="btn btn-sm font-weight-bold text-white mt-5 border-radius-5 btn-shadow-brand hover-up"
+                                                    onClick={toggleNav}>Account Menu
+                                                </button>
+                                                {isMobile && isNavVisible && !navClicked ? (
+                                                    <div className="dashboard-menu">
+                                                        <ul className="nav flex-column" role="tablist">
+                                                            <li className="nav-item">
+                                                                <a className={activeIndex === 1 ? "nav-link active" : "nav-link"}
+                                                                   onClick={() => handleOnClick(1)}><i
+                                                                    className="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
+                                                            </li>
+                                                            <li className="nav-item">
+                                                                <a className={activeIndex === 2 ? "nav-link active" : "nav-link"}
+                                                                   onClick={() => handleOnClick(2)}><i
+                                                                    className="fi-rs-shopping-bag mr-10"></i>Orders</a>
+                                                            </li>
 
-                                                <li className="nav-item">
-                                                    <a className={activeIndex === 6 ? "nav-link active" : "nav-link"}
-                                                       onClick={() => handleOnClick(6)}><i
-                                                        className="fi-rs-shopping-bag mr-10"></i>Bulk Groups</a>
-                                                </li>
+                                                            <li className="nav-item">
+                                                                <a className={activeIndex === 6 ? "nav-link active" : "nav-link"}
+                                                                   onClick={() => handleOnClick(6)}><i
+                                                                    className="fi-rs-shopping-bag mr-10"></i>Bulk Groups</a>
+                                                            </li>
 
-                                                <li className="nav-item">
-                                                    <a className={activeIndex === 3 ? "nav-link active" : "nav-link"}
-                                                       onClick={() => handleOnClick(3)}><i
-                                                        className="fi-rs-shopping-cart-check mr-10"></i>Track Your Order</a>
-                                                </li>
+                                                            <li className="nav-item">
+                                                                <a className={activeIndex === 3 ? "nav-link active" : "nav-link"}
+                                                                   onClick={() => handleOnClick(3)}><i
+                                                                    className="fi-rs-shopping-cart-check mr-10"></i>Track
+                                                                    Your Order</a>
+                                                            </li>
 
-                                                <li className="nav-item">
-                                                    <a className={activeIndex === 7 ? "nav-link active" : "nav-link"}
-                                                       onClick={() => handleOnClick(7)}><i
-                                                        className="fi-rs-message-check mr-10"></i>Messages</a>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <a className={activeIndex === 4 ? "nav-link active" : "nav-link"}
-                                                       onClick={() => handleOnClick(4)}><i
-                                                        className="fi-rs-marker mr-10"></i>My Address</a>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <a className={activeIndex === 5 ? "nav-link active" : "nav-link"}
-                                                       onClick={() => handleOnClick(5)}><i
-                                                        className="fi-rs-user mr-10"></i>Account details</a>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <a onClick={handleLogout} className="nav-link"><i
-                                                        className="fi-rs-sign-out mr-10"></i>Logout</a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                                            <li className="nav-item">
+                                                                <a className={activeIndex === 7 ? "nav-link active" : "nav-link"}
+                                                                   onClick={() => handleOnClick(7)}><i
+                                                                    className="fi-rs-message-check mr-10"></i>Messages</a>
+                                                            </li>
+                                                            <li className="nav-item">
+                                                                <a className={activeIndex === 4 ? "nav-link active" : "nav-link"}
+                                                                   onClick={() => handleOnClick(4)}><i
+                                                                    className="fi-rs-marker mr-10"></i>My Address</a>
+                                                            </li>
+                                                            <li className="nav-item">
+                                                                <a className={activeIndex === 5 ? "nav-link active" : "nav-link"}
+                                                                   onClick={() => handleOnClick(5)}><i
+                                                                    className="fi-rs-user mr-10"></i>Account details</a>
+                                                            </li>
+                                                            <li className="nav-item">
+                                                                <a onClick={handleLogout} className="nav-link"><i
+                                                                    className="fi-rs-sign-out mr-10"></i>Logout</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                ): null}
+                                            </>
+                                        ) : (
+                                            <div className="dashboard-menu">
+                                                <ul className="nav flex-column" role="tablist">
+                                                    <li className="nav-item">
+                                                        <a className={activeIndex === 1 ? "nav-link active" : "nav-link"}
+                                                           onClick={() => handleOnClick(1)}><i
+                                                            className="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
+                                                    </li>
+                                                    <li className="nav-item">
+                                                        <a className={activeIndex === 2 ? "nav-link active" : "nav-link"}
+                                                           onClick={() => handleOnClick(2)}><i
+                                                            className="fi-rs-shopping-bag mr-10"></i>Orders</a>
+                                                    </li>
+
+                                                    <li className="nav-item">
+                                                        <a className={activeIndex === 6 ? "nav-link active" : "nav-link"}
+                                                           onClick={() => handleOnClick(6)}><i
+                                                            className="fi-rs-shopping-bag mr-10"></i>Bulk Groups</a>
+                                                    </li>
+
+                                                    <li className="nav-item">
+                                                        <a className={activeIndex === 3 ? "nav-link active" : "nav-link"}
+                                                           onClick={() => handleOnClick(3)}><i
+                                                            className="fi-rs-shopping-cart-check mr-10"></i>Track Your
+                                                            Order</a>
+                                                    </li>
+
+                                                    <li className="nav-item">
+                                                        <a className={activeIndex === 7 ? "nav-link active" : "nav-link"}
+                                                           onClick={() => handleOnClick(7)}><i
+                                                            className="fi-rs-message-check mr-10"></i>Messages</a>
+                                                    </li>
+                                                    <li className="nav-item">
+                                                        <a className={activeIndex === 4 ? "nav-link active" : "nav-link"}
+                                                           onClick={() => handleOnClick(4)}><i
+                                                            className="fi-rs-marker mr-10"></i>My Address</a>
+                                                    </li>
+                                                    <li className="nav-item">
+                                                        <a className={activeIndex === 5 ? "nav-link active" : "nav-link"}
+                                                           onClick={() => handleOnClick(5)}><i
+                                                            className="fi-rs-user mr-10"></i>Account details</a>
+                                                    </li>
+                                                    <li className="nav-item">
+                                                        <a onClick={handleLogout} className="nav-link"><i
+                                                            className="fi-rs-sign-out mr-10"></i>Logout</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        )}
                                     </div>
                                     <div className="col-lg-9">
-                                    <div className="tab-content account dashboard-content">
-                                            <div className={activeIndex === 1 ? "tab-pane fade active show" : "tab-pane fade "} >
+                                        <div className="tab-content account dashboard-content">
+                                            <div
+                                                className={activeIndex === 1 ? "tab-pane fade active show" : "tab-pane fade "}>
                                                 <div className="card">
                                                     <div className="card-header">
                                                         <h3 className="mb-0">Hello {userInfo.user ? userInfo.user.name : ''}!</h3>
                                                     </div>
                                                     <div className="card-body">
                                                         <p>
-                                                            From your account dashboard. you can easily check &amp; view your
+                                                            From your account dashboard. you can easily check &amp; view
+                                                            your
                                                             <span
-                                                            style={{color: '#69e265', cursor: 'pointer'}}
-                                                            onClick={() => handleOnClick(2)}
+                                                                style={{color: '#69e265', cursor: 'pointer'}}
+                                                                onClick={() => handleOnClick(2)}
                                                             >
                                                                  {" recent orders"}
                                                             </span>,
                                                             <br/>
-                                                             manage your,
+                                                            manage your,
                                                             <span
                                                                 style={{color: '#69e265', cursor: 'pointer'}}
                                                                 onClick={() => handleOnClick(4)}
                                                             >
                                                                 {" addresses"}
                                                             </span> and <span
-                                                                style={{color: '#69e265', cursor: 'pointer'}}
-                                                                onClick={() => handleOnClick(5)}
-                                                            >
+                                                            style={{color: '#69e265', cursor: 'pointer'}}
+                                                            onClick={() => handleOnClick(5)}
+                                                        >
                                                             edit your password and account details.
                                                             </span>
                                                         </p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className={activeIndex === 2 ? "tab-pane fade active show" : "tab-pane fade "} >
+                                            <div
+                                                className={activeIndex === 2 ? "tab-pane fade active show" : "tab-pane fade "}>
                                                 <div className="card">
                                                     <div className="card-header">
                                                         <h3 className="mb-0">Your Orders</h3>
@@ -326,7 +400,7 @@ function Account() {
                                                             <table className="table">
                                                                 <thead>
                                                                 <tr>
-                                                                    <th>Order</th>
+                                                                <th>Order</th>
                                                                     <th>Date</th>
                                                                     <th>Status</th>
                                                                     <th>Total</th>
@@ -370,20 +444,22 @@ function Account() {
 
                                             <div
                                                 className={activeIndex === 6 ? "tab-pane fade active show" : "tab-pane fade "}>
-                                            <div className="card">
+                                                <div className="card">
                                                     <div className="card-header">
                                                         <div
                                                             className="card-header d-flex justify-content-between align-items-center">
                                                             <h3 className="mb-0">Your Bulk Orders</h3>
                                                             <div>
-                                                                <button className="btn btn-sm font-weight-bold text-white mt-5 border-radius-5 btn-shadow-brand hover-up"
-                                                                        onClick={() => setShowCreateGroupModal(true)}>Create
+                                                                <button
+                                                                    className="btn btn-sm font-weight-bold text-white mt-5 border-radius-5 btn-shadow-brand hover-up"
+                                                                    onClick={() => setShowCreateGroupModal(true)}>Create
                                                                     a group
                                                                 </button>
                                                                 <CreateGroup show={showCreateGroupModal}
                                                                              onClose={() => setShowCreateGroupModal(false)}/>
-                                                                <button className="btn btn-sm font-weight-bold text-white mt-5 border-radius-5 btn-shadow-brand hover-up"
-                                                                        onClick={() => setShowJoinGroupModal(true)}>Join
+                                                                <button
+                                                                    className="btn btn-sm font-weight-bold text-white mt-5 border-radius-5 btn-shadow-brand hover-up"
+                                                                    onClick={() => setShowJoinGroupModal(true)}>Join
                                                                     a group
                                                                 </button>
                                                                 <JoinGroup show={showJoinGroupModal}
@@ -455,19 +531,29 @@ function Account() {
                                                         <h3 className="mb-0">Orders tracking</h3>
                                                     </div>
                                                     <div className="card-body contact-from-area">
-                                                        <p>To track your order please enter your OrderID in the box below and press "Track" button. This was given to you on your receipt and in the confirmation email you should have received.</p>
+                                                        <p>To track your order please enter your OrderID in the box
+                                                            below and press "Track" button. This was given to you on
+                                                            your receipt and in the confirmation email you should have
+                                                            received.</p>
                                                         <div className="row">
                                                             <div className="col-lg-8">
-                                                                <form className="contact-form-style mt-30 mb-50" action="#" method="post">
+                                                                <form className="contact-form-style mt-30 mb-50"
+                                                                      action="#" method="post">
                                                                     <div className="input-style mb-20">
                                                                         <label>Order ID</label>
-                                                                        <input name="order-id" placeholder="Found in your order confirmation email" type="text" />
+                                                                        <input name="order-id"
+                                                                               placeholder="Found in your order confirmation email"
+                                                                               type="text"/>
                                                                     </div>
                                                                     <div className="input-style mb-20">
                                                                         <label>Billing email</label>
-                                                                        <input name="billing-email" placeholder="Email you used during checkout" type="email" />
+                                                                        <input name="billing-email"
+                                                                               placeholder="Email you used during checkout"
+                                                                               type="email"/>
                                                                     </div>
-                                                                    <button className="submit submit-auto-width" type="submit">Track</button>
+                                                                    <button className="submit submit-auto-width"
+                                                                            type="submit">Track
+                                                                    </button>
                                                                 </form>
                                                             </div>
                                                         </div>
@@ -476,7 +562,8 @@ function Account() {
                                             </div>
 
 
-                                            <div className={activeIndex === 4 ? "tab-pane fade active show" : "tab-pane fade "} >
+                                            <div
+                                                className={activeIndex === 4 ? "tab-pane fade active show" : "tab-pane fade "}>
                                                 <div className="row">
                                                     <div className="col-lg-12">
                                                         <div className="card mb-3 mb-lg-0">
@@ -527,17 +614,19 @@ function Account() {
                                             </div>
                                             <div
                                                 className={activeIndex === 5 ? "tab-pane fade active show" : "tab-pane fade "}>
-                                            <div className="card">
+                                                <div className="card">
                                                     <div className="card-header">
                                                         <h5>Account Details</h5>
                                                     </div>
                                                     <div className="card-body">
-                                                        <p>Already have an account? <Link legacyBehavior href="/page-login"><a>Log
+                                                        <p>Already have an account? <Link legacyBehavior
+                                                                                          href="/page-login"><a>Log
                                                             in instead!</a></Link></p>
                                                         <form onSubmit={handleSubmit} name="enq">
                                                             <div className="row">
                                                                 <div className="form-group col-md-6">
-                                                                    <label>Name <span className="required">*</span></label>
+                                                                    <label>Name <span
+                                                                        className="required">*</span></label>
                                                                     <input
                                                                         required=""
                                                                         className="form-control"
@@ -547,40 +636,49 @@ function Account() {
                                                                     />
                                                                 </div>
                                                                 <div className="form-group col-md-6">
-                                                                        <label>Phone Number <span className="required">*</span></label>
-                                                                        <input required=""
-                                                                               className="form-control"
-                                                                               name="phone"
-                                                                               placeholder={userInfo.user ? userInfo.user.phone : ''}
-                                                                        />
-                                                                    </div>
-
-                                                                    <div className="form-group col-md-12">
-                                                                        <label>Email Address <span className="required">*</span></label>
-                                                                        <input required=""
-                                                                               className="form-control"
-                                                                               name="email"
-                                                                               type="email"
-                                                                                placeholder={userInfo.user ? userInfo.user.email : ''}
-                                                                        />
-                                                                    </div>
-                                                                    {/*<div className="form-group col-md-12">*/}
-                                                                    {/*    <label>Current Password <span className="required">*</span></label>*/}
-                                                                    {/*    <input required="" className="form-control" name="password" type="password" />*/}
-                                                                    {/*</div>*/}
-                                                                    <div className="form-group col-md-12">
-                                                                        <label>New Password <span className="required">*</span></label>
-                                                                        <input required="" className="form-control" name="npassword" type="password" />
-                                                                    </div>
-                                                                    <div className="form-group col-md-12">
-                                                                        <label>Confirm Password <span className="required">*</span></label>
-                                                                        <input required="" className="form-control" name="cpassword" type="password" />
-                                                                    </div>
-                                                                    <div className="col-md-12">
-                                                                        <button type="submit" className="btn btn-fill-out submit font-weight-bold" name="submit" value="Submit">Save Change</button>
-                                                                    </div>
+                                                                    <label>Phone Number <span
+                                                                        className="required">*</span></label>
+                                                                    <input required=""
+                                                                           className="form-control"
+                                                                           name="phone"
+                                                                           placeholder={userInfo.user ? userInfo.user.phone : ''}
+                                                                    />
                                                                 </div>
-                                                            </form>
+
+                                                                <div className="form-group col-md-12">
+                                                                    <label>Email Address <span
+                                                                        className="required">*</span></label>
+                                                                    <input required=""
+                                                                           className="form-control"
+                                                                           name="email"
+                                                                           type="email"
+                                                                           placeholder={userInfo.user ? userInfo.user.email : ''}
+                                                                    />
+                                                                </div>
+                                                                {/*<div className="form-group col-md-12">*/}
+                                                                {/*    <label>Current Password <span className="required">*</span></label>*/}
+                                                                {/*    <input required="" className="form-control" name="password" type="password" />*/}
+                                                                {/*</div>*/}
+                                                                <div className="form-group col-md-12">
+                                                                    <label>New Password <span
+                                                                        className="required">*</span></label>
+                                                                    <input required="" className="form-control"
+                                                                           name="npassword" type="password"/>
+                                                                </div>
+                                                                <div className="form-group col-md-12">
+                                                                    <label>Confirm Password <span
+                                                                        className="required">*</span></label>
+                                                                    <input required="" className="form-control"
+                                                                           name="cpassword" type="password"/>
+                                                                </div>
+                                                                <div className="col-md-12">
+                                                                    <button type="submit"
+                                                                            className="btn btn-fill-out submit font-weight-bold"
+                                                                            name="submit" value="Submit">Save Change
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -595,7 +693,6 @@ function Account() {
         </>
     );
 }
-
 
 
 export default Account;
