@@ -6,7 +6,10 @@ import {useRouter} from "next/router";
 
 const ProductTab = ({product}) => {
     const [activeIndex, setActiveIndex] = useState(1);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(() => {
+        const savedIsLoggedIn = localStorage.getItem('isLoggedIn');
+        return savedIsLoggedIn ? JSON.parse(savedIsLoggedIn) : false;
+    });
     const router = useRouter();
 
     const handleOnClick = (index) => {
@@ -279,7 +282,7 @@ const ProductTab = ({product}) => {
                                                     <button
                                                         className="button button-contactForm"
                                                         onClick={() => {
-                                                            router.push('/login'); // replace '/login' with your actual login route
+                                                            router.push('/page-login'); // replace '/login' with your actual login route
                                                         }}
                                                     >
                                                         Please login to leave a review
