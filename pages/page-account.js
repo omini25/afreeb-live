@@ -32,6 +32,7 @@ function Account() {
 
     const toggleNav = () => {
         setIsNavVisible(!isNavVisible);
+        setNavClicked(false); // Reset navClicked state
     };
 
     const handleNavClick = (index) => {
@@ -185,6 +186,24 @@ function Account() {
         }
     };
 
+    const [currentMessage, setCurrentMessage] = useState('');
+    const [chats, setChats] = useState(['Chat', 'Chat', 'Chat']); // Sample chat room names
+    const [currentChat, setCurrentChat] = useState(''); // Current chat room
+
+    const handleInputChange = (event) => {
+        setCurrentMessage(event.target.value);
+    };
+
+    const handleSendMessage = () => {
+        // Here you can handle the message sending logic
+        console.log(currentMessage);
+        setCurrentMessage('');
+    };
+
+    const handleChatSelect = (chat) => {
+        setCurrentChat(chat);
+    };
+
     const fetchAddress = async () => {
         if (userInfo.user) {
             try {
@@ -259,41 +278,41 @@ function Account() {
                                                         <ul className="nav flex-column" role="tablist">
                                                             <li className="nav-item">
                                                                 <a className={activeIndex === 1 ? "nav-link active" : "nav-link"}
-                                                                   onClick={() => handleOnClick(1)}><i
+                                                                   onClick={() => handleNavClick(1)}><i
                                                                     className="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
                                                             </li>
                                                             <li className="nav-item">
                                                                 <a className={activeIndex === 2 ? "nav-link active" : "nav-link"}
-                                                                   onClick={() => handleOnClick(2)}><i
+                                                                   onClick={() => handleNavClick(2)}><i
                                                                     className="fi-rs-shopping-bag mr-10"></i>Orders</a>
                                                             </li>
 
                                                             <li className="nav-item">
                                                                 <a className={activeIndex === 6 ? "nav-link active" : "nav-link"}
-                                                                   onClick={() => handleOnClick(6)}><i
+                                                                   onClick={() => handleNavClick(6)}><i
                                                                     className="fi-rs-shopping-bag mr-10"></i>Bulk Groups</a>
                                                             </li>
 
                                                             <li className="nav-item">
                                                                 <a className={activeIndex === 3 ? "nav-link active" : "nav-link"}
-                                                                   onClick={() => handleOnClick(3)}><i
+                                                                   onClick={() => handleNavClick(3)}><i
                                                                     className="fi-rs-shopping-cart-check mr-10"></i>Track
                                                                     Your Order</a>
                                                             </li>
 
                                                             <li className="nav-item">
                                                                 <a className={activeIndex === 7 ? "nav-link active" : "nav-link"}
-                                                                   onClick={() => handleOnClick(7)}><i
+                                                                   onClick={() => handleNavClick(7)}><i
                                                                     className="fi-rs-message-check mr-10"></i>Messages</a>
                                                             </li>
                                                             <li className="nav-item">
                                                                 <a className={activeIndex === 4 ? "nav-link active" : "nav-link"}
-                                                                   onClick={() => handleOnClick(4)}><i
+                                                                   onClick={() => handleNavClick(4)}><i
                                                                     className="fi-rs-marker mr-10"></i>My Address</a>
                                                             </li>
                                                             <li className="nav-item">
                                                                 <a className={activeIndex === 5 ? "nav-link active" : "nav-link"}
-                                                                   onClick={() => handleOnClick(5)}><i
+                                                                   onClick={() => handleNavClick(5)}><i
                                                                     className="fi-rs-user mr-10"></i>Account details</a>
                                                             </li>
                                                             <li className="nav-item">
@@ -334,7 +353,7 @@ function Account() {
                                                     <li className="nav-item">
                                                         <a className={activeIndex === 7 ? "nav-link active" : "nav-link"}
                                                            onClick={() => handleOnClick(7)}><i
-                                                            className="fi-rs-message-check mr-10"></i>Messages</a>
+                                                            className="fi-rs-chat mr-10"></i>Messages</a>
                                                     </li>
                                                     <li className="nav-item">
                                                         <a className={activeIndex === 4 ? "nav-link active" : "nav-link"}
@@ -400,7 +419,7 @@ function Account() {
                                                             <table className="table">
                                                                 <thead>
                                                                 <tr>
-                                                                <th>Order</th>
+                                                                    <th>Order</th>
                                                                     <th>Date</th>
                                                                     <th>Status</th>
                                                                     <th>Total</th>
@@ -532,8 +551,8 @@ function Account() {
                                                     </div>
                                                     <div className="card-body contact-from-area">
                                                         <p>To track your order please enter your OrderID in the box
-                                                            below and press "Track" button. This was given to you on
-                                                            your receipt and in the confirmation email you should have
+                                                            below and press "Track" button. You can find the OrderId in
+                                                            the orders of account menu and in the confirmation email you
                                                             received.</p>
                                                         <div className="row">
                                                             <div className="col-lg-8">
@@ -555,6 +574,63 @@ function Account() {
                                                                             type="submit">Track
                                                                     </button>
                                                                 </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div
+                                                className={activeIndex === 7 ? "tab-pane fade active show" : "tab-pane fade "}>
+                                                <div className="card">
+                                                    <div className="card-header">
+                                                        <h3 className="mb-0">Messages</h3>
+                                                    </div>
+                                                    <div className="card-body">
+                                                        <div className="chat-page"
+                                                             style={{display: 'flex', flexDirection: 'row'}}>
+                                                            <div className="chat-select-section">
+                                                                <ul className="nav flex-column mr-60" role="tablist">
+                                                                    {chats.map((chat, index) => (
+                                                                        <li className="nav-item" key={index}>
+
+                                                                            <a className={activeIndex === 1 ? "nav-link active" : "nav-link"}
+                                                                               oonClick={() => handleChatSelect(chat)}>
+                                                                                {chat}
+                                                                            </a>
+                                                                        </li>
+                                                                    ))}
+                                                                    {/*<li className="nav-item">*/}
+                                                                    {/*    <a className={activeIndex === 1 ? "nav-link active" : "nav-link"}*/}
+                                                                    {/*       onClick={() => handleOnClick(1)}><i*/}
+                                                                    {/*        className="fi-rs-settings-sliders mr-10"></i>Dashboard*/}
+                                                                    {/*    </a>*/}
+                                                                    {/*</li>*/}
+                                                                </ul>
+                                                                    {/*<ul className="nav flex-column mr-40">*/}
+                                                                    {/*    {chats.map((chat, index) => (*/}
+                                                                    {/*        <li className="nav-item" key={index}*/}
+                                                                    {/*            onClick={() => handleChatSelect(chat)}>*/}
+                                                                    {/*            {chat}*/}
+                                                                    {/*        </li>*/}
+                                                                    {/*    ))}*/}
+                                                                    {/*</ul>*/}
+                                                            </div>
+                                                            <div className="chat-display-section">
+                                                                {/* Here you can map through the messages of the selected chat and display them */}
+                                                            </div>
+                                                            <div className="chat-input-section">
+                                                                <input
+                                                                    type="text"
+                                                                    value={currentMessage}
+                                                                    onChange={handleInputChange}
+                                                                    placeholder="Type your message here..."
+                                                                />
+                                                                <button className="submit submit-auto-width mt-3"
+                                                                        onClick={handleSendMessage}>Send
+                                                                </button>
+
                                                             </div>
                                                         </div>
                                                     </div>
