@@ -3,6 +3,7 @@ import axios from "axios";
 import {server} from "../../server";
 import StarRatings from "react-star-ratings/build/star-ratings";
 import {useRouter} from "next/router";
+import {toast} from "react-toastify";
 
 const ProductTab = ({product}) => {
     const [activeIndex, setActiveIndex] = useState(1);
@@ -12,9 +13,24 @@ const ProductTab = ({product}) => {
     });
     const router = useRouter();
 
+    const [userInfo, setUserInfo] = useState({});
+    const userId = userInfo.user ? userInfo.user.id : null;
+
+    useEffect(() => {
+        const storedUserInfo = JSON.parse(localStorage.getItem('userInfo'));
+        if (storedUserInfo) {
+            setUserInfo(storedUserInfo);
+        }
+    }, []);
+
+
+    // const [averageRating, setAverageRating] = useState(0);
+
     const handleOnClick = (index) => {
         setActiveIndex(index);
     };
+
+    const [averageRatings, setAverageRatings] = useState(0);
 
     const [commentData, setCommentData] = useState(null);
 
@@ -25,16 +41,22 @@ const ProductTab = ({product}) => {
         console.log('commentData is null');
     }
 
+    const [singleRating, setSingleRating] = useState(0);
+
     useEffect(() => {
         const fetchCommentData = async () => {
             try {
                 const response = await axios.get(`${server}/review/${product.id}`);
                 const data = response.data.reviews;
-                // data.forEach(comment => {
-                //     comment.id = comment.review.id;
-                //     comment.user_name = comment.review.user_name;
-                // });
                 setCommentData(data);
+
+                // Calculate average rating
+                const totalRating = data.reduce((acc, comment) => acc + comment.rating, 0);
+                const averageRating = totalRating / data.length;
+                const singleRating = data.map((comment) => comment.rating);
+
+                // Update averageRatings state
+                setAverageRatings(averageRating);
             } catch (error) {
                 console.error('Error fetching comment data:', error);
             }
@@ -57,10 +79,10 @@ const ProductTab = ({product}) => {
         event.preventDefault();
 
         const comment = event.target.elements.comment.value;
-        const rating = averageRating.toString();
+        const rating = averageRatings.toString();
 
-        // Retrieve user_id from local storage
-        const user_id = localStorage.getItem('user_id');
+        setAverageRatings(averageRating); // Use averageRating instead of newRating
+
 
         // Retrieve product_id and vendor_id from the product object
         const product_id = product.id;
@@ -69,22 +91,22 @@ const ProductTab = ({product}) => {
         const formData = {
             comment,
             rating,
-            user_id,
             product_id,
             vendor_id
         };
 
         try {
-            const response = await axios.post(`${server}/users/reviews`, formData);
+            const response = await axios.post(`${server}/users/reviews/${userId}`, formData);
             console.log(response.data);
+            toast('Reviews submitted successfully')
+            // Clear the form
+            event.target.reset();
         } catch (error) {
             console.error('Error submitting form:', error);
         }
     };
 
-    // if (!commentData) {
-    //     return <div>Loading...</div>;
-    // }
+   console.log(userId)
 
     return (
         <div className="product-info">
@@ -252,14 +274,14 @@ const ProductTab = ({product}) => {
                                                 <form className="form-contact comment_form" onSubmit={handleSubmit}
                                                       id="commentForm">
                                                     <StarRatings
-                                                        rating={averageRating}
+                                                        rating={averageRatings} // Use averageRatings instead of averageRating
                                                         changeRating={(newRating) => {
-                                                            setAverageRating(newRating);
+                                                            setAverageRatings(newRating);
                                                         }}
                                                         numberOfStars={5}
                                                         starDimension="20px"
                                                         starSpacing="2px"
-                                                        starRatedColor="gray"
+                                                        starRatedColor="gold"
                                                     />
                                                     <div className="row">
                                                         <div className="col-12">
@@ -346,13 +368,13 @@ const ProductTab = ({product}) => {
                                             </div>
                                             <div className="desc ml-25">
                                             <div className="d-inline-block ml-5">
-                                                    <StarRatings
-                                                        rating={averageRating}
-                                                        numberOfStars={5}
-                                                        starDimension="20px"
-                                                        starSpacing="2px"
-                                                        starRatedColor="gold"
-                                                    />
+                                               <StarRatings
+                                                    rating={comment.rating} // Use comment.rating instead of singleRating
+                                                    numberOfStars={5}
+                                                    starDimension="20px"
+                                                    starSpacing="2px"
+                                                    starRatedColor="gold"
+                                                />
                                                 </div>
                                                 <p>{comment.comment}</p>
                                                 <div className="d-flex justify-content-between">
