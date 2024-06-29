@@ -3,6 +3,7 @@ import Modal from 'react-responsive-modal';
 import axios from 'axios';
 import {server} from "../../config";
 import {mainServer} from "../../mainServer";
+import {toast} from "react-toastify";
 
 function AddAddress({ userId, refreshAddresses }) {
     const [modalOpen, setModalOpen] = useState(false);
@@ -25,7 +26,7 @@ function AddAddress({ userId, refreshAddresses }) {
         event.preventDefault();
 
         const newAddress = {
-            country: selectedCountry,
+            country: event.target.elements.country.value,
             address: event.target.elements.address.value,
             street: event.target.elements.street.value,
             city: event.target.elements.city.value,
@@ -40,6 +41,11 @@ function AddAddress({ userId, refreshAddresses }) {
 
             // Close the modal
             closeModal();
+
+            if (response.status === 201) {
+                toast.success('Address added successfully.');
+                onAddressAdded(); // Call the callback function to refresh the addresses
+            }
 
             // Refresh the address list
             refreshAddresses();
@@ -66,24 +72,24 @@ function AddAddress({ userId, refreshAddresses }) {
                 >
                     <h2 className="p-4">Add Address</h2>
                     <form className="p-4" onSubmit={handleAddAddress}>
-                        <div className="form-group">
-                            <div className="custom_select">
-                                <select className="form-control select-active" value={selectedCountry}
-                                        onChange={handleCountryChange}>
-                                    <option value="">
-                                        Select Country
-                                    </option>
-                                    <option value="US">
-                                        USA (US)
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
+                        {/*<div className="form-group">*/}
+                        {/*    <div className="custom_select">*/}
+                        {/*        <select className="form-control select-active" value={selectedCountry}*/}
+                        {/*                onChange={handleCountryChange}>*/}
+                        {/*            <option value="">*/}
+                        {/*                Select Country*/}
+                        {/*            </option>*/}
+                        {/*            <option value="US">*/}
+                        {/*                USA (US)*/}
+                        {/*            </option>*/}
+                        {/*        </select>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
                         <div className="form-group">
                             <input
                                 type="text"
                                 name="country"
-                                value={selectedCountry}
+                                required=""
                                 placeholder="Country *"
                             />
                         </div>

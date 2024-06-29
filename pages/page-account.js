@@ -131,6 +131,15 @@ function Account() {
         fetchAddress();
     }, [userInfo]);
 
+    const onAddressAdded = async () => {
+        try {
+            const response = await axios.get(`${server}/address/${userId}`);
+            setAddress(response.data.address);
+        } catch (error) {
+            console.error('Failed to refresh addresses:', error);
+        }
+    };
+
 
 
     const handleSubmit = async (event) => {
@@ -204,6 +213,23 @@ function Account() {
         setCurrentChat(chat);
     };
 
+    const [payments, setPayments] = useState([]);
+
+    useEffect(() => {
+        const fetchPayments = async () => {
+            try {
+                const response = await axios.get(`${server}/user/${userInfo.user.id}/payments`); // Replace with your API endpoint
+                setPayments(response.data);
+            } catch (error) {
+                console.error('Failed to fetch payments:', error);
+            }
+        };
+
+        fetchPayments();
+    }, []);
+
+    console.log(payments);
+
     const fetchAddress = async () => {
         if (userInfo.user) {
             try {
@@ -215,16 +241,23 @@ function Account() {
         }
     };
 
+    const refreshAddresses = async () => {
+        try {
+            const response = await axios.get(`${server}/address/${userInfo.user.id}`);
+            setAddress(response.data.address);
+        } catch (error) {
+            console.error('Failed to refresh addresses:', error);
+        }
+    };
+
     const deleteAddress = async (addressId) => {
         try {
             await axios.delete(`${server}/user/${userInfo.user.id}/address/${addressId}`);
             toast.success('Address deleted successfully');
             // Refresh addresses after deletion
-            window.location.reload();
             fetchAddress();
         } catch (error) {
             console.error('Failed to delete address:', error);
-            toast.error('Failed to delete address');
         }
     };
 
@@ -301,6 +334,12 @@ function Account() {
                                                             </li>
 
                                                             <li className="nav-item">
+                                                                <a className={activeIndex === 8 ? "nav-link active" : "nav-link"}
+                                                                   onClick={() => handleNavClick(8)}><i
+                                                                    className="fi-rs-shopping-cart-check mr-10"></i>Payments</a>
+                                                            </li>
+
+                                                            <li className="nav-item">
                                                                 <a className={activeIndex === 7 ? "nav-link active" : "nav-link"}
                                                                    onClick={() => handleNavClick(7)}><i
                                                                     className="fi-rs-message-check mr-10"></i>Messages</a>
@@ -349,6 +388,14 @@ function Account() {
                                                             className="fi-rs-shopping-cart-check mr-10"></i>Track Your
                                                             Order</a>
                                                     </li>
+
+                                                    <li className="nav-item">
+                                                        <a className={activeIndex === 8 ? "nav-link active" : "nav-link"}
+                                                           onClick={() => handleOnClick(8)}><i
+                                                            className="fi-rs-shopping-cart-check mr-10"></i>Payments</a>
+                                                    </li>
+
+
 
                                                     <li className="nav-item">
                                                         <a className={activeIndex === 7 ? "nav-link active" : "nav-link"}
@@ -580,6 +627,60 @@ function Account() {
                                                 </div>
                                             </div>
 
+                                            <div
+                                                className={activeIndex === 8 ? "tab-pane fade active show" : "tab-pane fade "}>
+                                                <div className="card">
+                                                    <div className="card-header">
+                                                        <h3 className="mb-0">Your Payments</h3>
+                                                    </div>
+                                                    <div className="card-body">
+                                                        <div className="table-responsive">
+                                                            <table className="table">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Id</th>
+                                                                    <th>Product</th>
+                                                                    <th>Date</th>
+                                                                    <th>Status</th>
+                                                                    <th>Total</th>
+                                                                    <th>Actions</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                {payments.map((payment) => (
+                                                                    <tr
+                                                                        key={payment.id}
+                                                                        style={
+                                                                            isMobile
+                                                                                ? {
+                                                                                    display: 'flex',
+                                                                                    flexDirection: 'row',
+                                                                                    borderTop: '1px solid #000',
+                                                                                    borderBottom: '1px solid #000'
+                                                                                }
+                                                                                : {
+                                                                                    borderTop: '1px solid #000',
+                                                                                    borderBottom: '1px solid #000'
+                                                                                }
+                                                                        }
+                                                                    >
+                                                                        <td>#{payment.id}</td>
+                                                                        <td>{payment.product}</td>
+                                                                        <td>{new Date(payment.date).toLocaleDateString()}</td>
+                                                                        <td>{payment.status}</td>
+                                                                        <td>${payment.total} for {payment.quantity} item(s)</td>
+                                                                        <td><a href="#"
+                                                                               className="btn-small d-block">View</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                ))}
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
 
                                             <div
                                                 className={activeIndex === 7 ? "tab-pane fade active show" : "tab-pane fade "}>
@@ -608,14 +709,14 @@ function Account() {
                                                                     {/*    </a>*/}
                                                                     {/*</li>*/}
                                                                 </ul>
-                                                                    {/*<ul className="nav flex-column mr-40">*/}
-                                                                    {/*    {chats.map((chat, index) => (*/}
-                                                                    {/*        <li className="nav-item" key={index}*/}
-                                                                    {/*            onClick={() => handleChatSelect(chat)}>*/}
-                                                                    {/*            {chat}*/}
-                                                                    {/*        </li>*/}
-                                                                    {/*    ))}*/}
-                                                                    {/*</ul>*/}
+                                                                {/*<ul className="nav flex-column mr-40">*/}
+                                                                {/*    {chats.map((chat, index) => (*/}
+                                                                {/*        <li className="nav-item" key={index}*/}
+                                                                {/*            onClick={() => handleChatSelect(chat)}>*/}
+                                                                {/*            {chat}*/}
+                                                                {/*        </li>*/}
+                                                                {/*    ))}*/}
+                                                                {/*</ul>*/}
                                                             </div>
                                                             <div className="chat-display-section">
                                                                 {/* Here you can map through the messages of the selected chat and display them */}
@@ -646,7 +747,7 @@ function Account() {
                                                             <div className="card-header d-flex justify-content-between">
                                                                 <h3 className="mb-0 mr-5">Address</h3>
                                                                 <AddAddress userId={userId}
-                                                                            refreshAddresses={fetchAddress}/>
+                                                                            onAddressAdded={onAddressAdded}/>
                                                             </div>
                                                             <div className="card-body">
                                                                 <table>

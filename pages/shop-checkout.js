@@ -19,6 +19,7 @@ import {mainServer} from "../mainServer";
 import { Elements, useStripe, useElements } from '@stripe/react-stripe-js';
 import CheckoutForm from "../components/ecommerce/CheckoutForm";
 import {useMediaQuery} from "react-responsive";
+import AddAddress from "../components/ecommerce/AddAddress";
 
 
 
@@ -55,7 +56,24 @@ const Cart = ({
 
     const router = useRouter();
     const [defaultAddress, setDefaultAddress] = useState(null);
+    const [addresses, setAddresses] = useState([]);
     const userInfo = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('userInfo')) : null;
+    const userId = userInfo ? userInfo.user.id : null;
+    const [isAddAddressModalOpen, setIsAddAddressModalOpen] = useState(false);
+
+    useEffect(() => {
+        const fetchAddresses = async () => {
+            try {
+                const response = await axios.get(`${server}/address/${userInfo.user.id}`);
+                setAddresses(response.data.address);
+            } catch (error) {
+                console.error('Failed to fetch addresses:', error);
+            }
+        };
+        fetchAddresses();
+    }, []);
+
+    console.log('addresses', addresses);
 
     useEffect(() => {
         const fetchDefaultAddress = async () => {
@@ -70,6 +88,15 @@ const Cart = ({
         };
         fetchDefaultAddress();
     }, []);
+
+    const onAddressAdded = async () => {
+        try {
+            const response = await axios.get(`${server}/address/${userId}`);
+            setAddresses(response.data.address);
+        } catch (error) {
+            console.error('Failed to refresh addresses:', error);
+        }
+    };
 
     const [selectedCountry, setSelectedCountry] = useState('');
 
@@ -104,6 +131,10 @@ const Cart = ({
 
     const [useShippingForBilling, setUseShippingForBilling] = useState(false);
 
+    const [tip, setTip] = useState(0);
+
+    const totalPayment = (price() + 5.99 + tip).toFixed(2);
+
     useEffect(() => {
         const isLoggedIn = localStorage.getItem('isLoggedIn');
 
@@ -119,29 +150,28 @@ const Cart = ({
         try {
             event.preventDefault();
 
-            // Check if there is a default address
-            if (!defaultAddress) {
-                toast.error('No active address. Please enter an address or select an active address in your account.');
-                return; // Stop the order process
-            }
-
             const productDetails = cartItems.map((item) => ({
                 name: item.product_name,
                 totalPrice: item.price,
                 quantity: item.quantity,
+                image: item.image,
+                tip: item.tip
             }));
 
             const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+            console.log(productDetails)
 
             const stripe = await stripePromise;
 
             const response = await axios.post(`${server}/create-checkout-session`, {
                 productDetails,
                 user_id: userInfo.user.id,
+                total: totalPayment, // Pass the total payment to the server
+                tip: tip, // Pass the tip to the server
             });
 
             const { id: sessionId } = response.data;
-            console.log(sessionId);
 
             if (sessionId) {
                 const result = await stripe.redirectToCheckout({
@@ -156,11 +186,20 @@ const Cart = ({
         }
     };
 
+    const refreshAddresses = async () => {
+        try {
+            const response = await axios.get(`${server}/address/${userInfo.user.id}`);
+            setAddresses(response.data.address);
+        } catch (error) {
+            console.error('Failed to refresh addresses:', error);
+        }
+    };
+
     return (
         <>
             <Layout parent="Home" sub="Shop" subChild="Checkout">
                 <section
-                    className={`mt-50 mb-50 ${isNotMobile ? 'style={{paddingLeft: "50px", paddingRight: "50px"}}' : ''}`}>
+                    className={`mt-50 mb-50 ${isNotMobile ? 'style={{paddingLeft: "70px", paddingRight: "70px"}}' : ''}`}>
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-8 mb-40">
@@ -199,84 +238,19 @@ const Cart = ({
                                 <div className="mb-25">
                                     <h4>Shipping Details</h4>
                                 </div>
-                                {defaultAddress ? (
-                                    <div>
-                                        <address>
-                                            {defaultAddress.street}, {defaultAddress.city}, {defaultAddress.state}, {defaultAddress.country}, {defaultAddress.zip_code}
-                                        </address>
-                                    </div>
-                                ) : (
-                                    <form className="p-4" onSubmit={handleAddAddress}>
-                                        <div className="form-group">
-                                            <div className="custom_select">
-                                                <select className="form-control select-active" value={selectedCountry}
-                                                        onChange={handleCountryChange}>
-                                                    <option value="">
-                                                        Select Country
-                                                    </option>
-                                                    <option value="US">
-                                                        USA (US)
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div className="form-group">
-                                            <input
-                                                type="text"
-                                                name="country"
-                                                value={selectedCountry}
-                                                placeholder="Country *"
-                                            />
-                                        </div>
-                                        <div className="form-group">
-                                            <input
-                                                type="text"
-                                                name="address"
-                                                required=""
-                                                placeholder="Address *"
-                                            />
-                                        </div>
-
-                                        <div className="form-group">
-                                            <input
-                                                required=""
-                                                type="text"
-                                                name="street"
-                                                placeholder="Street *"
-                                            />
-                                        </div>
-                                        <div className="form-group">
-                                            <input
-                                                required=""
-                                                type="text"
-                                                name="city"
-                                                placeholder="City / Town *"
-                                            />
-                                        </div>
-                                        <div className="form-group">
-                                            <input
-                                                required=""
-                                                type="text"
-                                                name="state"
-                                                placeholder="State / County *"
-                                            />
-                                        </div>
-                                        <div className="form-group">
-                                            <input
-                                                required=""
-                                                type="text"
-                                                name="zip_code"
-                                                placeholder="Postcode / ZIP *"
-                                            />
-                                        </div>
-
-                                        <div className="">
-                                            <button className="submit submit-auto-width" type="submit">Add Address
-                                            </button>
-                                        </div>
-
-                                    </form>
-                                )}
+                                <select>
+                                    <option value="">Select Address</option>
+                                    {addresses.map((address, index) => (
+                                        <option key={index} value={address.id}>
+                                            {address.street}, {address.city}, {address.state}, {address.country}, {address.zip_code}
+                                        </option>
+                                    ))}
+                                </select>
+                                {/*<button onClick={() => setIsAddAddressModalOpen(true)}>Add Address</button>*/}
+                                {/*{isAddAddressModalOpen && (*/}
+                                {/*    <AddAddress onClose={() => setIsAddAddressModalOpen(false)} />*/}
+                                {/*)}*/}
+                                <AddAddress userId={userId} onAddressAdded={onAddressAdded} />
 
                                 <div className="mb-25 mt-30">
                                     <h4>Billing Details</h4>
@@ -368,19 +342,20 @@ const Cart = ({
                                         >
                                             <tbody>
                                             {cartItems && cartItems.map((item, i) => (
-                                                <tr key={i} style={isMobile ? {display: 'flex', flexDirection: 'row'} : {}}
+                                                <tr key={i}
+                                                    style={isMobile ? {display: 'flex', flexDirection: 'row'} : {}}
                                                 >
                                                     <td className="">
                                                         <img
                                                             src={`${assetServer}/images/products/${item.image}`}
                                                             alt="#"
                                                             style={
-                                                            isMobile ?
-                                                            {
-                                                                width: '300%',
-                                                                height: 'auto'
-                                                            }
-                                                            : {}
+                                                                isMobile ?
+                                                                    {
+                                                                        width: '200%',
+                                                                        height: 'auto'
+                                                                    }
+                                                                    : {}
                                                             }
                                                         />
                                                     </td>
@@ -424,12 +399,26 @@ const Cart = ({
                                     </div>
 
                                     <div className="bt-1 border-color-1 mt-30 mb-30"></div>
+
+                                    <div className="form-group">
+                                        <label htmlFor="tip">Delivery Tip:</label>
+                                        <input
+                                            type="number"
+                                            id="tip"
+                                            name="tip"
+                                            min="0"
+                                            step="0.01"
+                                            value={tip}
+                                            onChange={e => setTip(parseFloat(e.target.value))}
+                                        />
+                                    </div>
+
                                     <div className="payment_method">
                                         <div className="mb-25">
                                             <h5>Shipping: $5.99</h5>
                                         </div>
                                         <div className="mb-25">
-                                            <h5>Total Payment: ${(price() + 5.99).toFixed(2)}</h5>
+                                            <h5>Total Payment: ${((price() + 5.99 + (isNaN(tip) ? 0 : tip)).toFixed(2))}</h5>
                                         </div>
                                     </div>
                                     <button
