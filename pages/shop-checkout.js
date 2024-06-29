@@ -255,7 +255,7 @@ const Cart = ({
                                 <div className="mb-25 mt-30">
                                     <h4>Billing Details</h4>
                                 </div>
-                                {defaultAddress ? (
+                                {addresses ? (
                                     <div>
                                         <div className="chek-form">
                                             <div className="custome-checkbox pb-15">
@@ -274,9 +274,9 @@ const Cart = ({
                                                     aria-controls="collapseAddress"
                                                     htmlFor="differentaddress"
                                                 >
-                    <span>
-                        Use Shipping Address for Billing
-                    </span>
+                                                <span>
+                                                    Use Shipping Address for Billing
+                                                </span>
                                                 </label>
                                             </div>
                                         </div>
