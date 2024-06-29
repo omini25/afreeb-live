@@ -257,9 +257,6 @@ const Cart = ({
                                 </div>
                                 {defaultAddress ? (
                                     <div>
-                                        {/*<address>*/}
-                                        {/*    {defaultAddress.street}, {defaultAddress.city}, {defaultAddress.state}, {defaultAddress.country}, {defaultAddress.zip_code}*/}
-                                        {/*</address>*/}
                                         <div className="chek-form">
                                             <div className="custome-checkbox pb-15">
                                                 <input
@@ -277,52 +274,45 @@ const Cart = ({
                                                     aria-controls="collapseAddress"
                                                     htmlFor="differentaddress"
                                                 >
-                                                            <span>
-                                                                Use Shipping Address for Billing
-                                                            </span>
+                    <span>
+                        Use Shipping Address for Billing
+                    </span>
                                                 </label>
                                             </div>
                                         </div>
-                                        {/*<div>*/}
-                                        {/*    <input type="checkbox" id="sameAsShipping" name="sameAsShipping"*/}
-                                        {/*           onChange={() => setUseShippingForBilling(!useShippingForBilling)}/>*/}
-                                        {/*    <label htmlFor="sameAsShipping">Use Shipping Address for Billing</label>*/}
-                                        {/*</div>*/}
                                     </div>
                                 ) : null}
 
-                                <form method="post">
-                                    {!useShippingForBilling && (
-                                        <>
-                                            <div className="form-group">
-                                                <div className="custom_select">
-                                                    <select className="form-control select-active">
-                                                        <option value="">Select an option...</option>
-                                                        <option value="US">USA (US)</option>
-                                                    </select>
-                                                </div>
+                                {!useShippingForBilling && (
+                                    <form method="post">
+                                        <div className="form-group">
+                                            <div className="custom_select">
+                                                <select className="form-control select-active">
+                                                    <option value="">Select an option...</option>
+                                                    <option value="US">USA (US)</option>
+                                                </select>
                                             </div>
-                                            <div className="form-group">
-                                                <input type="text" name="address" required="" placeholder="Address *"/>
-                                            </div>
-                                            <div className="form-group">
-                                                <input type="text" name="billing_address2" required=""
-                                                       placeholder="Address line2"/>
-                                            </div>
-                                            <div className="form-group">
-                                                <input required="" type="text" name="city" placeholder="City / Town *"/>
-                                            </div>
-                                            <div className="form-group">
-                                                <input required="" type="text" name="state"
-                                                       placeholder="State / County *"/>
-                                            </div>
-                                            <div className="form-group">
-                                                <input required="" type="text" name="zipcode"
-                                                       placeholder="Postcode / ZIP *"/>
-                                            </div>
-                                        </>
-                                    )}
-                                </form>
+                                        </div>
+                                        <div className="form-group">
+                                            <input type="text" name="address" required="" placeholder="Address *"/>
+                                        </div>
+                                        <div className="form-group">
+                                            <input type="text" name="billing_address2" required=""
+                                                   placeholder="Address line2"/>
+                                        </div>
+                                        <div className="form-group">
+                                            <input required="" type="text" name="city" placeholder="City / Town *"/>
+                                        </div>
+                                        <div className="form-group">
+                                            <input required="" type="text" name="state"
+                                                   placeholder="State / County *"/>
+                                        </div>
+                                        <div className="form-group">
+                                            <input required="" type="text" name="zipcode"
+                                                   placeholder="Postcode / ZIP *"/>
+                                        </div>
+                                    </form>
+                                )}
                             </div>
                             <div className="col-lg-5">
                                 <div className="border p-40 cart-totals ml-30 mb-50">
