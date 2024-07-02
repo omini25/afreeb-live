@@ -28,7 +28,8 @@ const Header = ({
         if (typeof window !== 'undefined') {
             setCart(JSON.parse(localStorage.getItem('dokani_cart')) || []);
         }
-    }, []);
+    }, [localStorage.getItem('dokani_cart')]); // Add dependency to useEffect
+
 
     const handleNavigation = () => {
         router.push({
@@ -224,13 +225,13 @@ const Header = ({
                                                                     </Link>
                                                                 </div>
                                                                 <div className="shopping-cart-title">
-                                                                    <h4>
+                                                                    <h6>
                                                                         <Link legacyBehavior href="/shop-grid-right">
                                                                             <a>
-                                                                                {item.product_name}
+                                                                                {item.product_name.length > 14 ? item.product_name.substring(0, 14) + "..." : item.product_name}
                                                                             </a>
                                                                         </Link>
-                                                                    </h4>
+                                                                    </h6>
                                                                     <h3>
                                                                         <span>{item.quantity} × </span>
                                                                         ${item.price}
