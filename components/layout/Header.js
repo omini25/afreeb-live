@@ -28,7 +28,7 @@ const Header = ({
         if (typeof window !== 'undefined') {
             setCart(JSON.parse(localStorage.getItem('dokani_cart')) || []);
         }
-    }, [localStorage.getItem('dokani_cart')]); // Add dependency to useEffect
+    }, []); // Remove dependency on localStorage.getItem('dokani_cart')
 
 
     const handleNavigation = () => {
@@ -305,30 +305,30 @@ const Header = ({
                                                                         My Account
                                                                     </a></Link>
                                                             </li>
-                                                            <li>
-                                                                <Link legacyBehavior href="/page-account"><a>
-                                                                    <i className="fi fi-rs-location-alt mr-10"></i>
-                                                                    Order Tracking
-                                                                </a></Link>
-                                                            </li>
-                                                            <li>
-                                                                <Link legacyBehavior href="/page-account"><a>
-                                                                    <i className="fi fi-rs-label mr-10"></i>
-                                                                    Groups
-                                                                </a></Link>
-                                                            </li>
+                                                            {/*<li>*/}
+                                                            {/*    <Link legacyBehavior href="/page-account"><a>*/}
+                                                            {/*        <i className="fi fi-rs-location-alt mr-10"></i>*/}
+                                                            {/*        Order Tracking*/}
+                                                            {/*    </a></Link>*/}
+                                                            {/*</li>*/}
+                                                            {/*<li>*/}
+                                                            {/*    <Link legacyBehavior href="/page-account"><a>*/}
+                                                            {/*        <i className="fi fi-rs-label mr-10"></i>*/}
+                                                            {/*        Groups*/}
+                                                            {/*    </a></Link>*/}
+                                                            {/*</li>*/}
                                                             <li>
                                                                 <Link legacyBehavior href="/shop-wishlist"><a>
                                                                     <i className="fi fi-rs-heart mr-10"></i>
                                                                     My Wishlist
                                                                 </a></Link>
                                                             </li>
-                                                            <li>
-                                                                <Link legacyBehavior href="/page-account"><a>
-                                                                    <i className="fi fi-rs-settings-sliders mr-10"></i>
-                                                                    Setting
-                                                                </a></Link>
-                                                            </li>
+                                                            {/*<li>*/}
+                                                            {/*    <Link legacyBehavior href="/page-account"><a>*/}
+                                                            {/*        <i className="fi fi-rs-settings-sliders mr-10"></i>*/}
+                                                            {/*        Setting*/}
+                                                            {/*    </a></Link>*/}
+                                                            {/*</li>*/}
                                                             <li>
                                                                 <a onClick={logout}>
                                                                     <i className="fi fi-rs-sign-out mr-10"></i>

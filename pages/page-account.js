@@ -12,6 +12,7 @@ import CreateGroup from "../components/ecommerce/CreateGroup";
 import JoinGroup from "../components/ecommerce/JoinGroup";
 import EditAddress from "../components/ecommerce/EditAddress";
 import {useMediaQuery} from "react-responsive";
+import { jsPDF } from "jspdf";
 
 function Account() {
     const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -23,6 +24,7 @@ function Account() {
     const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
     const [showJoinGroupModal, setShowJoinGroupModal] = useState(false);
     const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
+    const [payments, setPayments] = useState([]);
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [currentAddress, setCurrentAddress] = useState(null);
@@ -112,6 +114,34 @@ function Account() {
 
     const handleOnClick = (index) => {
         setActiveIndex(index); // remove the curly braces
+    };
+
+    //recipt dowmloading
+    const generateReceipt = (paymentDetails) => {
+        const doc = new jsPDF();
+
+        // Customize the PDF appearance
+        doc.setFontSize(12); // Set the font size
+        doc.setFont("helvetica", "bold"); // Set the font type and style
+        doc.text("Payment Receipt", 105, 10, null, null, "center"); // Add a title in the center
+
+        // Reset font for the rest of the content
+        doc.setFont("helvetica", "normal");
+
+        // Add payment details to the PDF
+        doc.text(`Payment ID: ${paymentDetails.id}`, 10, 20);
+        doc.text(`Product: ${paymentDetails.product.product_name}`, 10, 30);
+        doc.text(`Product Price: $${paymentDetails.product.price}`, 10, 40); // Add product price
+        doc.text(`Store: ${paymentDetails.store_name}`, 10, 50); // Add store name
+        doc.text(`Date: ${new Date(paymentDetails.created_at).toLocaleDateString()}`, 10, 60);
+        doc.text(`Status: ${paymentDetails.payment_status}`, 10, 70);
+        doc.text(`Total: $${paymentDetails.total_cost} for ${paymentDetails.quantity} item(s)`, 10, 80);
+
+        // Customize the download name to include "afreebmart" and the payment ID
+        const fileName = `afreebmart_receipt_${paymentDetails.id}.pdf`;
+
+        // Save the PDF with the custom file name
+        doc.save(fileName);
     };
 
     const [address, setAddress] = useState('');
@@ -213,22 +243,27 @@ function Account() {
         setCurrentChat(chat);
     };
 
-    const [payments, setPayments] = useState([]);
 
+    //payments use effect
     useEffect(() => {
         const fetchPayments = async () => {
-            try {
-                const response = await axios.get(`${server}/user/${userInfo.user.id}/payments`); // Replace with your API endpoint
-                setPayments(response.data);
-            } catch (error) {
-                console.error('Failed to fetch payments:', error);
+            // Ensure userInfo and userInfo.user are defined before proceeding
+            if (userInfo && userInfo.user && userInfo.user.id) {
+                try {
+                    const response = await axios.get(`${server}/user/payments/${userInfo.user.id}`);
+                    setPayments(response.data.flat());
+                } catch (error) {
+                    console.error('Failed to fetch payments:', error);
+                }
+            } else {
+                console.log('User info or user ID is undefined.');
             }
         };
 
         fetchPayments();
-    }, []);
+    }, [userInfo]); // Dependency array includes userInfo to re-run useEffect when userInfo changes
+    console.log(payments)
 
-    console.log(payments);
 
     const fetchAddress = async () => {
         if (userInfo.user) {
@@ -507,7 +542,7 @@ function Account() {
                                                 </div>
                                             </div>
 
-
+                                            //Bulk Orders
                                             <div
                                                 className={activeIndex === 6 ? "tab-pane fade active show" : "tab-pane fade "}>
                                                 <div className="card">
@@ -589,7 +624,7 @@ function Account() {
                                                 </div>
                                             </div>
 
-
+                                            //Orders Tracking
                                             <div
                                                 className={activeIndex === 3 ? "tab-pane fade active show" : "tab-pane fade "}>
                                                 <div className="card">
@@ -627,6 +662,7 @@ function Account() {
                                                 </div>
                                             </div>
 
+                                            //payments
                                             <div
                                                 className={activeIndex === 8 ? "tab-pane fade active show" : "tab-pane fade "}>
                                                 <div className="card">
@@ -649,7 +685,7 @@ function Account() {
                                                                 <tbody>
                                                                 {payments.map((payment) => (
                                                                     <tr
-                                                                        key={payment.id}
+                                                                        key={String(payment.id)}
                                                                         style={
                                                                             isMobile
                                                                                 ? {
@@ -664,13 +700,22 @@ function Account() {
                                                                                 }
                                                                         }
                                                                     >
-                                                                        <td>#{payment.id}</td>
-                                                                        <td>{payment.product}</td>
-                                                                        <td>{new Date(payment.date).toLocaleDateString()}</td>
-                                                                        <td>{payment.status}</td>
-                                                                        <td>${payment.total} for {payment.quantity} item(s)</td>
-                                                                        <td><a href="#"
-                                                                               className="btn-small d-block">View</a>
+                                                                        <td>#{String(payment.id)}</td>
+                                                                        <td>{String(payment.product.product_name)}</td>
+                                                                        <td>{new Date(payment.created_at).toLocaleDateString()}</td>
+                                                                        <td style={{
+                                                                            backgroundColor: payment.payment_status === 'paid' ? 'green' : payment.payment_status === 'failed' ? 'red' : 'transparent',
+                                                                            color: 'white'
+                                                                        }}>
+                                                                            {payment.payment_status === 'paid' ? 'Paid' : payment.payment_status === 'failed' ? 'Failed' : payment.payment_status}
+                                                                        </td>
+                                                                        <td>${String(payment.total_cost)}</td>
+                                                                        <td>
+                                                                            <button
+                                                                                onClick={() => generateReceipt(payment)}
+                                                                                className="btn-small d-block">Download
+                                                                                Receipt
+                                                                            </button>
                                                                         </td>
                                                                     </tr>
                                                                 ))}
@@ -789,6 +834,8 @@ function Account() {
                                                     </div>
                                                 </div>
                                             </div>
+
+
                                             <div
                                                 className={activeIndex === 5 ? "tab-pane fade active show" : "tab-pane fade "}>
                                                 <div className="card">

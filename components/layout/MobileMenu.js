@@ -345,18 +345,18 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                                 <a>Account</a>
                                             </Link>
                                         </li>
-                                        <li>
-                                            <Link legacyBehavior href="/page-account?tab=orders">
-                                                <a onClick={handleOrdersClick} className={activeIndex === 2 ? "nav-link active" : "nav-link"}>
-                                                    Orders
-                                                </a>
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link legacyBehavior href="/page-account">
-                                                <a>Profile</a>
-                                            </Link>
-                                        </li>
+                                        {/*<li>*/}
+                                        {/*    <Link legacyBehavior href="/page-account?tab=orders">*/}
+                                        {/*        <a onClick={handleOrdersClick} className={activeIndex === 2 ? "nav-link active" : "nav-link"}>*/}
+                                        {/*            Orders*/}
+                                        {/*        </a>*/}
+                                        {/*    </Link>*/}
+                                        {/*</li>*/}
+                                        {/*<li>*/}
+                                        {/*    <Link legacyBehavior href="/page-account">*/}
+                                        {/*        <a>Profile</a>*/}
+                                        {/*    </Link>*/}
+                                        {/*</li>*/}
                                         <li>
                                             <a onClick={logout}>Log Out</a>
                                         </li>
