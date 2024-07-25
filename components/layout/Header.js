@@ -33,22 +33,22 @@ const Header = ({
 
     const handleNavigation = () => {
         router.push({
-            pathname: '/shop-fullwidth',
-            query: { category: 'Fresh foods' }
+            pathname: '/category',
+            query: { subCategory: 'Fresh foods' }
         });
     };
 
     const handleNavigationFoodie = () => {
         router.push({
-            pathname: '/shop-fullwidth',
-            query: { category: 'Foodie (Hot Food)' }
+            pathname: '/category',
+            query: { subCategory: 'Foodie (Hot Food)' }
         });
     };
 
     const handleNavigationFrozen = () => {
         router.push({
-            pathname: '/shop-fullwidth',
-            query: { category: 'Frozen Foods' }
+            pathname: '/category',
+            query: { subCategory: 'Frozen Foods' }
         });
     };
 
@@ -152,7 +152,7 @@ const Header = ({
                     <div className="container">
                         <div className="header-wrap">
                             <div className="logo logo-width-1">
-                                <Link legacyBehavior href="/">
+                                <Link legacyBehavior href="/" onClick={() => window.location.reload()}>
                                     <a>
                                         <img
                                             src="assets/afreemart-logo.png"
@@ -169,7 +169,7 @@ const Header = ({
                                     <div className="header-action-2">
 
                                         <div className="header-action-icon-2">
-                                            <Link legacyBehavior href="/shop-wishlist">
+                                            <Link legacyBehavior href="/wishlist">
                                                 <a>
                                                     <img
                                                         className="svgInject"
@@ -181,7 +181,7 @@ const Header = ({
                                                     </span>
                                                 </a>
                                             </Link>
-                                            <Link legacyBehavior href="/shop-wishlist">
+                                            <Link legacyBehavior href="/wishlist">
                                                 <span className="lable">
                                                     Wishlist
                                                 </span>
@@ -190,7 +190,7 @@ const Header = ({
                                         <div className="header-action-icon-2">
 
                                             {/*<OverlayTrigger trigger="hover" placement="bottom" overlay={popover}>*/}
-                                                <Link legacyBehavior href="/shop-cart">
+                                                <Link legacyBehavior href="/cart">
                                                     <a className="mini-cart-icon">
                                                         <img
                                                             alt="Evara"
@@ -202,7 +202,7 @@ const Header = ({
                                                     </a>
                                                 </Link>
                                             {/*</OverlayTrigger>*/}
-                                            <Link legacyBehavior href="/shop-cart">
+                                            <Link legacyBehavior href="/cart">
                                                 <a>
                                                     <span className="lable">
                                                         Cart
@@ -226,7 +226,7 @@ const Header = ({
                                                                 </div>
                                                                 <div className="shopping-cart-title">
                                                                     <h6>
-                                                                        <Link legacyBehavior href="/shop-grid-right">
+                                                                        <Link legacyBehavior href="/grid-right">
                                                                             <a>
                                                                                 {item.product_name.length > 14 ? item.product_name.substring(0, 14) + "..." : item.product_name}
                                                                             </a>
@@ -256,10 +256,10 @@ const Header = ({
                                                     {/*    </h4>*/}
                                                     {/*</div>*/}
                                                     <div className="shopping-cart-button">
-                                                        <Link legacyBehavior href="/shop-cart">
+                                                        <Link legacyBehavior href="/cart">
                                                             <a>View cart</a>
                                                         </Link>
-                                                        <Link legacyBehavior href="/shop-checkout">
+                                                        <Link legacyBehavior href="/checkout">
                                                             <a>Checkout</a>
                                                         </Link>
                                                     </div>
@@ -269,14 +269,14 @@ const Header = ({
                                         </div>
 
                                         <div className="header-action-icon-2">
-                                            <Link legacyBehavior href="/page-account"><a>
+                                            <Link legacyBehavior href="/account"><a>
                                                 <img
                                                     className="svgInject"
                                                     alt="Nest"
                                                     src="/assets/imgs/theme/icons/icon-user.svg"
                                                 />
                                             </a></Link>
-                                            <Link legacyBehavior href="/page-account"><a>
+                                            <Link legacyBehavior href="/account"><a>
                                                 <span className="lable ml-0">
                                                     Account
                                                 </span>
@@ -286,12 +286,12 @@ const Header = ({
                                                     {!isLoggedIn ? (
                                                         <>
                                                             <li>
-                                                                <Link legacyBehavior href="/page-login">
+                                                                <Link legacyBehavior href="/login">
                                                                     <a>Login</a>
                                                                 </Link>
                                                             </li>
                                                             <li>
-                                                                <Link legacyBehavior href="/page-register">
+                                                                <Link legacyBehavior href="/register">
                                                                     <a>Signup</a>
                                                                 </Link>
                                                             </li>
@@ -299,32 +299,32 @@ const Header = ({
                                                     ) : (
                                                         <>
                                                             <li>
-                                                                <Link legacyBehavior href="/page-account">
+                                                                <Link legacyBehavior href="/account">
                                                                     <a>
                                                                         <i className="fi fi-rs-user mr-10"></i>
                                                                         My Account
                                                                     </a></Link>
                                                             </li>
                                                             {/*<li>*/}
-                                                            {/*    <Link legacyBehavior href="/page-account"><a>*/}
+                                                            {/*    <Link legacyBehavior href="/account"><a>*/}
                                                             {/*        <i className="fi fi-rs-location-alt mr-10"></i>*/}
                                                             {/*        Order Tracking*/}
                                                             {/*    </a></Link>*/}
                                                             {/*</li>*/}
                                                             {/*<li>*/}
-                                                            {/*    <Link legacyBehavior href="/page-account"><a>*/}
+                                                            {/*    <Link legacyBehavior href="/account"><a>*/}
                                                             {/*        <i className="fi fi-rs-label mr-10"></i>*/}
                                                             {/*        Groups*/}
                                                             {/*    </a></Link>*/}
                                                             {/*</li>*/}
                                                             <li>
-                                                                <Link legacyBehavior href="/shop-wishlist"><a>
+                                                                <Link legacyBehavior href="/wishlist"><a>
                                                                     <i className="fi fi-rs-heart mr-10"></i>
                                                                     My Wishlist
                                                                 </a></Link>
                                                             </li>
                                                             {/*<li>*/}
-                                                            {/*    <Link legacyBehavior href="/page-account"><a>*/}
+                                                            {/*    <Link legacyBehavior href="/account"><a>*/}
                                                             {/*        <i className="fi fi-rs-settings-sliders mr-10"></i>*/}
                                                             {/*        Setting*/}
                                                             {/*    </a></Link>*/}
@@ -537,9 +537,17 @@ const Header = ({
                                                                     </span>
                                                                 </div>
                                                                 <div className="menu-banner-btn">
-                                                                    <a href="#">
-                                                                        Shop now
-                                                                    </a>
+                                                                    <Link legacyBehavior href="/products">
+                                                                        <a style={{
+                                                                            padding: '10px 20px',
+                                                                            backgroundColor: '#6de669',
+                                                                            color: '#fff',
+                                                                            borderRadius: '5px',
+                                                                            textDecoration: 'none'
+                                                                        }}>
+                                                                            Shop Now
+                                                                        </a>
+                                                                    </Link>
                                                                 </div>
                                                             </div>
                                                             <div className="menu-banner-discount">
@@ -583,7 +591,7 @@ const Header = ({
                                                     {/*<li><Link legacyBehavior href="/vendor-dashboard"><a>Vendor Dashboard</a></Link></li>*/}
                                                     <li><Link legacyBehavior href="/vendor-guide"><a>Vendor
                                                         Guide</a></Link></li>
-                                                    <li><Link legacyBehavior href="/"><a>Become A Vendor </a></Link>
+                                                    <li><Link legacyBehavior href="https://vendor.afreebmart.com/signup"><a>Become A Vendor </a></Link>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -616,7 +624,7 @@ const Header = ({
                             <div className="header-action-right d-block d-lg-none">
                                 <div className="header-action-2">
                                     <div className="header-action-icon-2">
-                                        <Link legacyBehavior href="/shop-wishlist">
+                                        <Link legacyBehavior href="/wishlist">
                                             <a>
                                                 <img
                                                     alt="Evara"
@@ -629,7 +637,7 @@ const Header = ({
                                         </Link>
                                     </div>
                                     <div className="header-action-icon-2">
-                                        <Link legacyBehavior href="/shop-cart">
+                                        <Link legacyBehavior href="/cart">
                                             <a className="mini-cart-icon">
                                                 <img
                                                     alt="Evara"
@@ -644,18 +652,18 @@ const Header = ({
                                         {/*    <ul>*/}
                                         {/*        <li>*/}
                                         {/*            <div className="shopping-cart-img">*/}
-                                        {/*                <Link legacyBehavior href="/shop-grid-right">*/}
+                                        {/*                <Link legacyBehavior href="/grid-right">*/}
                                         {/*                    <a>*/}
                                         {/*                        <img*/}
                                         {/*                            alt="Evara"*/}
-                                        {/*                            src="/assets/imgs/shop/thumbnail-3.jpg"*/}
+                                        {/*                            src="/assets/imgs/thumbnail-3.jpg"*/}
                                         {/*                        />*/}
                                         {/*                    </a>*/}
                                         {/*                </Link>*/}
                                         {/*            </div>*/}
                                         {/*            <div className="shopping-cart-title">*/}
                                         {/*                <h4>*/}
-                                        {/*                    <Link legacyBehavior href="/shop-grid-right">*/}
+                                        {/*                    <Link legacyBehavior href="/grid-right">*/}
                                         {/*                        <a>*/}
                                         {/*                            Plain*/}
                                         {/*                            Striola*/}
@@ -678,18 +686,18 @@ const Header = ({
                                         {/*        </li>*/}
                                         {/*        <li>*/}
                                         {/*            <div className="shopping-cart-img">*/}
-                                        {/*                <Link legacyBehavior href="/shop-grid-right">*/}
+                                        {/*                <Link legacyBehavior href="/grid-right">*/}
                                         {/*                    <a>*/}
                                         {/*                        <img*/}
                                         {/*                            alt="Evara"*/}
-                                        {/*                            src="/assets/imgs/shop/thumbnail-4.jpg"*/}
+                                        {/*                            src="/assets/imgs/thumbnail-4.jpg"*/}
                                         {/*                        />*/}
                                         {/*                    </a>*/}
                                         {/*                </Link>*/}
                                         {/*            </div>*/}
                                         {/*            <div className="shopping-cart-title">*/}
                                         {/*                <h4>*/}
-                                        {/*                    <Link legacyBehavior href="/shop-grid-right">*/}
+                                        {/*                    <Link legacyBehavior href="/grid-right">*/}
                                         {/*                        <a>*/}
                                         {/*                            Macbook Pro*/}
                                         {/*                            2022*/}
@@ -718,10 +726,10 @@ const Header = ({
                                         {/*            </h4>*/}
                                         {/*        </div>*/}
                                         {/*        <div className="shopping-cart-button">*/}
-                                        {/*            <Link legacyBehavior href="/shop-cart">*/}
+                                        {/*            <Link legacyBehavior href="/cart">*/}
                                         {/*                <a>View cart</a>*/}
                                         {/*            </Link>*/}
-                                        {/*            <Link legacyBehavior href="/shop-checkout">*/}
+                                        {/*            <Link legacyBehavior href="/checkout">*/}
                                         {/*                <a>Checkout</a>*/}
                                         {/*            </Link>*/}
                                         {/*        </div>*/}

@@ -14,10 +14,9 @@ import SingleProduct from "./../components/ecommerce/SingleProduct";
 import Layout from "./../components/layout/Layout";
 import { fetchProduct } from '../redux/action/product';
 import axios from "axios";
-import {server} from "../server";
+import {server} from "../mainServer";
 
 const Products = ({ products, productFilters, fetchProduct }) => {
-    console.log(products);
 
     const [data, setData] = useState([]);
 
@@ -26,7 +25,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
             try {
                 const response = await axios.get(`${server}/products`); // Replace with your actual API endpoint
                 // Access the first element of the response data array
-                const allProducts = response.data.products;
+                const allProducts = response.data.products.filter(product => product.product_status !== 'suspended' && product.product_status !== 'inactive');
                 setData(allProducts);
             } catch (error) {
                 console.error("Error fetching vendors", error);
@@ -36,7 +35,6 @@ const Products = ({ products, productFilters, fetchProduct }) => {
         fetchProducts();
     }, []);
 
-    console.log(data);
 
     let Router = useRouter(),
         searchTerm = Router.query.search,
@@ -101,7 +99,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                     <div className="container mb-30">
                         <div className="row flex-row-reverse">
                             <div className="col-lg-4-5">
-                                <div className="shop-product-fillter">
+                                <div className="product-fillter">
 
                                     {/*<div className="sort-by-product-area">*/}
                                     {/*    <div className="sort-by-cover mr-10">*/}

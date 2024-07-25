@@ -11,7 +11,7 @@ import WishlistModal from "./../components/ecommerce/WishlistModal";
 import Layout from "./../components/layout/Layout";
 import { fetchProduct } from "./../redux/action/product";
 import axios from "axios";
-import {server} from "../server";
+import {server} from "../mainServer";
 import { useRouter } from 'next/router';
 
 const subCategory = ({ products, productFilters, fetchProduct }) => {
@@ -98,7 +98,7 @@ const subCategory = ({ products, productFilters, fetchProduct }) => {
                     <div className="container">
                         <div className="row flex-row-reverse">
                             <div className="col-lg-12">
-                                {/*<div className="shop-product-fillter">*/}
+                                {/*<div className="product-fillter">*/}
                                 {/*    <div className="totall-product">*/}
                                 {/*        <p>*/}
 

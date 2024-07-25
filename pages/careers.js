@@ -32,7 +32,7 @@ const Careers = () => {
                                         <div className="col-xxl-4">
                                             <div className="business-box">
                                                 <div>
-                                                    <div className="business-detail">
+                                                    <div className="business-detail mt-20">
                                                         <h4>Innovative Environment</h4>
                                                         <p>We thrive on creativity and encourage out-of-the-box
                                                             thinking. Your ideas and contributions are valued and can
@@ -46,7 +46,7 @@ const Careers = () => {
                                         <div className="col-xxl-4">
                                         <div className="business-box">
                                                 <div>
-                                                    <div className="business-detail">
+                                                    <div className="business-detail mt-20">
                                                         <h4>Career Growth</h4>
                                                         <p>Afreebmart is committed to your professional development. We
                                                             offer continuous learning opportunities, mentorship
@@ -62,7 +62,7 @@ const Careers = () => {
                                                 <div>
                                                     <div className="business-number">
                                                     </div>
-                                                    <div className="business-detail">
+                                                    <div className="business-detail mt-20">
                                                         <h4>Diverse and Inclusive Culture</h4>
                                                         <p>We embrace diversity in all its forms and foster an inclusive
                                                             environment where everyone feels respected, valued, and
@@ -75,7 +75,7 @@ const Careers = () => {
                                         <div className="col-xxl-4">
                                         <div className="business-box">
                                                 <div>
-                                                    <div className="business-detail">
+                                                    <div className="business-detail mt-20">
                                                         <h4>Impactful Work</h4>
                                                         <p>Join us in making a difference. Your work at Afreebmart
                                                             directly impacts vendors, suppliers, consumers, and the

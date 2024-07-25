@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-responsive-modal';
 import axios from 'axios';
-import {server} from "../../config";
-import {mainServer} from "../../mainServer";
+import {server} from "../../mainServer";
 import {toast} from "react-toastify";
 
 function AddAddress({ userId, refreshAddresses }) {
@@ -35,7 +34,7 @@ function AddAddress({ userId, refreshAddresses }) {
         };
 
         try {
-            const response = await axios.post(`${mainServer}/address/${userId}`, newAddress);
+            const response = await axios.post(`${server}/address/${userId}`, newAddress);
 
             console.log(response.data);
 

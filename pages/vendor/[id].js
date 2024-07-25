@@ -13,7 +13,7 @@ import QuickView from "../../components/ecommerce/QuickView";
 import SingleProduct from "../../components/ecommerce/SingleProduct";
 import Layout from "../../components/layout/Layout";
 import { fetchProduct } from "../../redux/action/product";
-import {server} from "../../server";
+import {server} from "../../mainServer";
 import axios from "axios";
 import { useRouter } from "next/router";
 
@@ -38,19 +38,21 @@ const Products = ({ productFilters, products }) => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        const fetchVendors = async () => {
-            try {
-                const response = await axios.get(`${server}/vendor/${id}/products`); // Replace with your actual API endpoint
-                // Access the first element of the response data array
-                const vendorProducts = response.data[0];
-                setData(vendorProducts);
-            } catch (error) {
-                console.error("Error fetching vendors", error);
-            }
-        };
+    const fetchVendors = async () => {
+        try {
+            const response = await axios.get(`${server}/vendor/${id}/products`); // Replace with your actual API endpoint
+            // Filter out products with suspended or inactive status
+            const vendorProducts = response.data.filter(product => product.product_status !== 'suspended' && product.product_status !== 'inactive');
+            setData(vendorProducts);
+        } catch (error) {
+            console.error("Error fetching vendors", error);
+        }
+    };
 
-        fetchVendors();
-    }, []);
+    fetchVendors();
+}, []);
+
+
 
 
     const {id} = router.query;
@@ -121,7 +123,7 @@ const Products = ({ productFilters, products }) => {
                     <div className="container mb-30">
                         <div className="row flex-row-reverse">
                             <div className="col-lg-4-5">
-                                <div className="shop-product-fillter">
+                                <div className="product-fillter">
                                     <div className="totall-product">
                                         <p>
                                             {/*We found*/}

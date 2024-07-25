@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {server} from "../../server";
+import {server} from "../../mainServer";
 import Cat1Tab from '../elements/FeaturedTab';
 import Cat2Tab from '../elements/NewArrivalTab';
 import Cat3Tab from '../elements/TrendingTab';
@@ -16,25 +16,28 @@ function CategoryTab() {
         const request = await fetch(`${server}/products`);
         const response = await request.json();
         const allProducts = response.products;
-        const catAllItem = allProducts.filter((item) => item.category);
+        const catAllItem = allProducts.filter((item) => item.category && item.status !== 'suspended' && item.status !== 'inactive' );
         setCatAll(catAllItem);
         setActive("1");
     };
+
+
 
     const catP1 = async () => {
         const request = await fetch(`${server}/products`);
         const response = await request.json();
         const allProducts = response.products;
-        const cat1Item = allProducts.filter((item) => item.category == "Fresh foods");
+        const cat1Item = allProducts.filter((item) => item.category === "Fresh foods" && item.status !== 'suspended' && item.status !== 'inactive');
         setCat1(cat1Item);
         setActive("2");
     };
+
 
     const catP2 = async () => {
         const request = await fetch(`${server}/products`);
         const response = await request.json();
         const allProducts = response.products;
-        const cat2Item = allProducts.filter((item) => item.category == "Foodie (Hot Food)");
+        const cat2Item = allProducts.filter((item) => item.category === "Foodie (Hot Food)" && item.status !== 'suspended' && item.status !== 'inactive' );
         setCat2(cat2Item);
         setActive("3");
     };
@@ -42,7 +45,7 @@ function CategoryTab() {
         const request = await fetch(`${server}/products`);
         const response = await request.json();
         const allProducts = response.products;
-        const cat3Item = allProducts.filter((item) => item.category == "Frozen Foods");
+        const cat3Item = allProducts.filter((item) => item.category === "Frozen Foods" && item.status !== 'suspended' && item.status !== 'inactive' );
         setCat3(cat3Item);
         setActive("4");
     };

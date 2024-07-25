@@ -14,7 +14,7 @@ import SingleProduct from "./../components/ecommerce/SingleProduct";
 import Layout from "./../components/layout/Layout";
 import { fetchProduct } from '../redux/action/product';
 import axios from "axios";
-import {server} from "../server";
+import {server} from "../mainServer";
 
 const Products = ({ products, productFilters, fetchProduct }) => {
     const [showSection, setShowSection] = useState(false);
@@ -22,22 +22,24 @@ const Products = ({ products, productFilters, fetchProduct }) => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await axios.get(`${server}/products`); // Replace with your actual API endpoint
-                const allProducts = response.data.products;
+    const fetchProducts = async () => {
+        try {
+            const response = await axios.get(`${server}/products`); // Replace with your actual API endpoint
+            const allProducts = response.data.products;
 
-                // Filter the products based on the group field
-                const filteredProducts = allProducts.filter(product => product.group === "1");
+            // Filter the products based on the group field and product status
+            const filteredProducts = allProducts.filter(product => product.group === "1" && product.product_status !== 'suspended' && product.product_status !== 'inactive');
 
-                setData(filteredProducts);
-            } catch (error) {
-                console.error("Error fetching products", error);
-            }
-        };
+            setData(filteredProducts);
+        } catch (error) {
+            console.error("Error fetching products", error);
+        }
+    };
 
-        fetchProducts();
-    }, []);
+    fetchProducts();
+}, []);
+
+
 
     let Router = useRouter(),
         searchTerm = Router.query.search,
@@ -138,7 +140,7 @@ const Products = ({ products, productFilters, fetchProduct }) => {
                     <div className="container mb-30">
                         <div className="row flex-row-reverse">
                             <div className="col-lg-4-5">
-                                <div className="shop-product-fillter">
+                                <div className="product-fillter">
 
 
                                 </div>

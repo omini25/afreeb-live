@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProductDetails from "../../components/ecommerce/ProductDetails";
 import Layout from '../../components/layout/Layout';
-import { server } from "../../server";
+import { server } from "../../mainServer";
 import axios from 'axios';
 
 const ProductId = ({ query }) => {
@@ -13,8 +13,14 @@ const ProductId = ({ query }) => {
         const fetchProductDetails = async () => {
             try {
                 const response = await axios.get(`${server}/product/${query.slug}`);
-                setProduct(response.data.product);
-                setLoading(false);
+                const productData = response.data.product;
+                if (productData.product_status !== 'suspended' && productData.product_status !== 'inactive') {
+                    setProduct(productData);
+                    setLoading(false);
+                } else {
+                    setError(true);
+                    setLoading(false);
+                }
             } catch (err) {
                 console.error(err);
                 setError(true);
@@ -56,7 +62,7 @@ export default ProductId;
 // import React from "react";
 // import ProductDetails from "../../components/ecommerce/ProductDetails";
 // import Layout from '../../components/layout/Layout';
-// import {server} from "../../server";
+// import {server} from "../../mainServer";
 // import { findProductIndex } from "../../util/util";
 // import product from "../../redux/reducer/product";
 // import {mainServer} from "../../mainServer";

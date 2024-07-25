@@ -8,7 +8,7 @@ const Search = () => {
     const router = useRouter();
 
     useEffect(() => {
-        fetch('https://afreebmart.com/api/categories')
+        fetch('https://api.afreebmart.com/api/categories')
             .then(response => response.json())
             .then(data => setCategories(data.categories))
             .catch(error => console.error('Error:', error));
@@ -19,19 +19,19 @@ const Search = () => {
     };
 
     const handleSearch = () => {
-        let url = 'https://afreebmart.com/api/products?search=' + searchTerm;
+        let url = 'https://api.afreebmart.com/api/products?search=' + searchTerm;
 
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                // Navigate to the shop-fullwidth page with the search term as a query parameter
+                // Navigate to the fullwidth page with the search term as a query parameter
                 router.push({
-                    pathname: '/shop-fullwidth',
+                    pathname: '/fullwidth',
                     query: { searchTerm: searchTerm }
                 });
                 // Pass the search results as a prop
                 router.push({
-                    pathname: '/shop-fullwidth',
+                    pathname: '/fullwidth',
                     props: { products: data }
                 });
             })

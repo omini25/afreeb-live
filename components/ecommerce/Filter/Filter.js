@@ -9,7 +9,7 @@ import VendorFilter from './VendorFilter';
 const ShopFilter = () => {
     return (
         <>
-            <div className="shop-product-fillter-header">
+            <div className="product-fillter-header">
                 <div className="row">
                     <div className="col-xl-3 col-lg-6 col-md-6 mb-lg-0 mb-md-2 mb-sm-2">
                         <div className="card">

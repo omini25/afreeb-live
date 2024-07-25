@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Layout from "../components/layout/Layout";
 import axios from 'axios';
-import {server} from "../server";
+import {server} from "../mainServer";
 
 
 
@@ -68,7 +68,7 @@ const Blank = () => {
                         </div>
                         <div className="row mb-50">
                             <div className="col-12 col-lg-8 mx-auto">
-                                <div className="shop-product-fillter">
+                                <div className="product-fillter">
                                     <div className="totall-product">
                                         <p>We have <strong className="text-brand">{data.length}</strong> vendors now</p>
                                     </div>

@@ -5,7 +5,7 @@ const Footer = () => {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        fetch('https://afreebmart.com/api/categories') // replace with your API endpoint
+        fetch('https://api.afreebmart.com/api/categories') // replace with your API endpoint
             .then(response => response.json())
             .then(data => setCategories(data.categories)) // adjust according to the structure of your API response
             .catch(error => console.error('Error:', error));
@@ -241,38 +241,38 @@ const Footer = () => {
                                 <h4 className="widget-title">Company</h4>
                                 <ul className="footer-list  mb-sm-5 mb-md-0">
                                     <li>
-                                        <a href="/page-about">About Us</a>
+                                        <a href="/about">About Us</a>
                                     </li>
                                     <li>
                                         <a href="/delivery-options">Delivery Options</a>
                                     </li>
                                     <li>
-                                        <a href="/page-privacy-policy">Privacy Policy</a>
+                                        <a href="/privacy-policy">Privacy Policy</a>
                                     </li>
                                     <li>
-                                        <a href="/page-terms">Terms &amp; Conditions</a>
+                                        <a href="/terms">Terms &amp; Conditions</a>
                                     </li>
                                     <li>
-                                        <a href="/page-contact">Contact Us</a>
+                                        <a href="/contact">Contact Us</a>
                                     </li>
                                     <li>
                                         <a href="/careers">Careers</a>
                                     </li>
                                 </ul>
                             </div>
-                            <div
-                                className="footer-link-widget col  wow animate__animated animate__fadeInUp"
-                                data-wow-delay=".2s"
-                            >
-                                <h4 className="widget-title ">Categories</h4>
-                                <ul className="footer-list  mb-sm-5 mb-md-0">
-                                    {categories.map((category, index) => (
-                                        <li key={index}>
-                                            <a href="#">{category.category_name}</a> {/* adjust according to the structure of your API response */}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                            {/*<div*/}
+                            {/*    className="footer-link-widget col  wow animate__animated animate__fadeInUp"*/}
+                            {/*    data-wow-delay=".2s"*/}
+                            {/*>*/}
+                            {/*    <h4 className="widget-title ">Categories</h4>*/}
+                            {/*    <ul className="footer-list  mb-sm-5 mb-md-0">*/}
+                            {/*        {categories.map((category, index) => (*/}
+                            {/*            <li key={index}>*/}
+                            {/*                <a href="#">{category.category_name}</a> /!* adjust according to the structure of your API response *!/*/}
+                            {/*            </li>*/}
+                            {/*        ))}*/}
+                            {/*    </ul>*/}
+                            {/*</div>*/}
                             <div
                                 className="footer-link-widget col  wow animate__animated animate__fadeInUp"
                                 data-wow-delay=".3s"

@@ -39,10 +39,10 @@ const BlogSidebar = () => {
                     <h5 className="section-title style-1 mb-30">Trending Now</h5>
                     <div className="single-post clearfix">
                         <div className="image">
-                            <img src="/assets/imgs/shop/thumbnail-3.jpg" alt="#" />
+                            <img src="/assets/imgs/thumbnail-3.jpg" alt="#" />
                         </div>
                         <div className="content pt-10">
-                            <h5><Link legacyBehavior href="/shop-product-detail"><a>Chen Cardigan</a></Link></h5>
+                            <h5><Link legacyBehavior href="/product-detail"><a>Chen Cardigan</a></Link></h5>
                             <p className="price mb-0 mt-5">$99.50</p>
                             <div className="product-rate">
                                 <div className="product-rating" style={{ "width": "90%" }}></div>
@@ -51,7 +51,7 @@ const BlogSidebar = () => {
                     </div>
                     <div className="single-post clearfix">
                         <div className="image">
-                            <img src="/assets/imgs/shop/thumbnail-4.jpg" alt="#" />
+                            <img src="/assets/imgs/thumbnail-4.jpg" alt="#" />
                         </div>
                         <div className="content pt-10">
                             <h6><Link legacyBehavior href="/products"><a>Chen Sweater</a></Link></h6>
@@ -63,7 +63,7 @@ const BlogSidebar = () => {
                     </div>
                     <div className="single-post clearfix">
                         <div className="image">
-                            <img src="/assets/imgs/shop/thumbnail-5.jpg" alt="#" />
+                            <img src="/assets/imgs/thumbnail-5.jpg" alt="#" />
                         </div>
                         <div className="content pt-10">
                             <h6><Link legacyBehavior href="/products"><a>Colorful Jacket</a></Link></h6>
@@ -75,7 +75,7 @@ const BlogSidebar = () => {
                     </div>
                     <div className="single-post clearfix">
                         <div className="image">
-                            <img src="/assets/imgs/shop/thumbnail-6.jpg" alt="#" />
+                            <img src="/assets/imgs/thumbnail-6.jpg" alt="#" />
                         </div>
                         <div className="content pt-10">
                             <h6><Link legacyBehavior href="/products"><a>Lorem, ipsum</a></Link></h6>
@@ -91,22 +91,22 @@ const BlogSidebar = () => {
                     <div className="instagram-gellay">
                         <ul className="insta-feed">
                             <li>
-                                <Link legacyBehavior href="#"><a><img className="border-radius-5" src="/assets/imgs/shop/thumbnail-1.jpg" alt="" /></a></Link>
+                                <Link legacyBehavior href="#"><a><img className="border-radius-5" src="/assets/imgs/thumbnail-1.jpg" alt="" /></a></Link>
                             </li>
                             <li>
-                                <Link legacyBehavior href="#"><a><img className="border-radius-5" src="/assets/imgs/shop/thumbnail-2.jpg" alt="" /></a></Link>
+                                <Link legacyBehavior href="#"><a><img className="border-radius-5" src="/assets/imgs/thumbnail-2.jpg" alt="" /></a></Link>
                             </li>
                             <li>
-                                <Link legacyBehavior href="#"><a><img className="border-radius-5" src="/assets/imgs/shop/thumbnail-3.jpg" alt="" /></a></Link>
+                                <Link legacyBehavior href="#"><a><img className="border-radius-5" src="/assets/imgs/thumbnail-3.jpg" alt="" /></a></Link>
                             </li>
                             <li>
-                                <Link legacyBehavior href="#"><a><img className="border-radius-5" src="/assets/imgs/shop/thumbnail-4.jpg" alt="" /></a></Link>
+                                <Link legacyBehavior href="#"><a><img className="border-radius-5" src="/assets/imgs/thumbnail-4.jpg" alt="" /></a></Link>
                             </li>
                             <li>
-                                <Link legacyBehavior href="#"><a><img className="border-radius-5" src="/assets/imgs/shop/thumbnail-5.jpg" alt="" /></a></Link>
+                                <Link legacyBehavior href="#"><a><img className="border-radius-5" src="/assets/imgs/thumbnail-5.jpg" alt="" /></a></Link>
                             </li>
                             <li>
-                                <Link legacyBehavior href="#"><a><img className="border-radius-5" src="/assets/imgs/shop/thumbnail-6.jpg" alt="" /></a></Link>
+                                <Link legacyBehavior href="#"><a><img className="border-radius-5" src="/assets/imgs/thumbnail-6.jpg" alt="" /></a></Link>
                             </li>
                         </ul>
                     </div>

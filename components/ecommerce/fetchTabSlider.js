@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 // import { fetchByCatagory } from "../../redux/action/product";
-import {server} from "../../server";
+import {server} from "../../mainServer";
 import FeaturedSlider from "../sliders/Featured";
 import NewArrivalTabSlider from "../sliders/NewArrivalTab";
 import TrendingSlider from "../sliders/Trending";
@@ -18,8 +18,8 @@ function FeatchTabSlider() {
         const request = await fetch(`${server}/products`);
         const response = await request.json();
         const allProducts = response.products;
-        const featuedItem = allProducts.filter((item) => item.group === "1");
-        setFeatured(featuedItem);
+        const featuredItem = allProducts.filter((item) => item.group === "1" && item.status !== 'suspended' && item.status !== 'inactive');
+        setFeatured(featuredItem);
         setActive("1");
     };
 
@@ -27,16 +27,16 @@ function FeatchTabSlider() {
         const request = await fetch(`${server}/products`);
         const response = await request.json();
         const allProducts = response.products;
-        const trendingItem = allProducts.filter((item) => item.trending);
+        const trendingItem = allProducts.filter((item) => item.trending && item.status !== 'suspended' && item.status !== 'inactive');
         setTrending(trendingItem);
         setActive("2");
     };
+
     const newArrivalProduct = async () => {
         const request = await fetch(`${server}/products`);
         const response = await request.json();
         const allProducts = response.products;
-        const newArrivalItem = allProducts
-            .filter((item) => item.group === "1" && moment(item.created_at).isAfter(oneWeekAgo))
+        const newArrivalItem = allProducts.filter((item) => item.group === "1" && item.status !== 'suspended' && item.status !== 'inactive' && moment(item.created_at).isAfter(oneWeekAgo))
             .sort((a, b) => (a.created_at > b.created_at ? -1 : 1));
         setNewArrival(newArrivalItem);
         setActive("3");

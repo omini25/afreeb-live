@@ -94,7 +94,7 @@ const CategorySlider2 = () => {
                     <SwiperSlide key={i}>
                         <div className="card-1">
                             <figure className=" img-hover-scale overflow-hidden">
-                               <Link legacyBehavior href="/shop-grid-right">
+                               <Link legacyBehavior href="/grid-right">
                                     <a>
                                         <img
                                             src={`assets/imgs/theme/icons/${item.img}`}
@@ -104,7 +104,7 @@ const CategorySlider2 = () => {
                                 </Link>
                             </figure>
                             <h6>
-                               <Link legacyBehavior href="/shop-grid-right">
+                               <Link legacyBehavior href="/grid-right">
                                     <a>{item.title}</a>
                                 </Link>
                             </h6>

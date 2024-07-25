@@ -19,7 +19,7 @@ function Verification() {
         await dispatch(login(email, password));
         if (!error) {
             toast.success('Login successful!'); // Add this line
-            router.push('/page-account'); // Add this line
+            router.push('/account'); // Add this line
         } else {
             toast.error('Login failed!');
         }
@@ -54,7 +54,7 @@ function Verification() {
                                             <div className="heading_s1">
                                                 <h1 className="mb-5">Login</h1>
                                                 <p className="mb-30">Don't have an account? <Link legacyBehavior
-                                                                                                  href="/page-register"><a>Create
+                                                                                                  href="/register"><a>Create
                                                     here</a></Link></p>
                                             </div>
                                             <form onSubmit={handleLogin}>

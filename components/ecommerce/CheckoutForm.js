@@ -2,7 +2,7 @@ import {useState} from "react";
 import {CardElement, useElements, useStripe} from "@stripe/react-stripe-js";
 import {clearCart} from "../../redux/action/cart";
 import axios from "axios";
-import {server} from "../../server";
+import {server} from "../../mainServer";
 import {toast} from "react-toastify";
 
 const CheckoutForm = ({ cartItems }) => {

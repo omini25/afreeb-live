@@ -10,7 +10,7 @@ import {assetServer} from "../../assetServer";
 import moment from 'moment';
 import Router from "next/router";
 import axios from "axios";
-import {server} from "../../server";
+import {server} from "../../mainServer";
 import {useMediaQuery} from "react-responsive";
 
 const SingleProduct2 = ({
@@ -72,8 +72,8 @@ const SingleProduct2 = ({
                 <div className="product-img-action-wrap">
                     <div className="product-img product-img-zoom">
                         <Link legacyBehavior
-                            href="/products/[product_name]"
-                            as={`/products/${product.product_name}`}
+                              href={`/products/${product.product_name}`}
+                              as={`/products/${product.product_name}`}
                         >
                             <a>
                                 <img
@@ -139,8 +139,8 @@ const SingleProduct2 = ({
                     </div>
                     <h2>
                         <Link legacyBehavior
-                            href="/products/[product_name]"
-                            as={`/products/${product.product_name}`}
+                              href={`/products/${product.product_name}`}
+                              as={`/products/${product.product_name}`}
                         >
                             <a>{product.product_name}</a>
                         </Link>
@@ -154,19 +154,19 @@ const SingleProduct2 = ({
                     {/*</div>*/}
 
                     <div className="product-price mt-10">
-                        <span>${product.price} </span>
+                        <span>${product.group_price} </span>
                         {/*<span className="old-price">{product.oldPrice && `$ ${product.oldPrice}`}</span>*/}
                     </div>
-                    <div className="sold mt-15 mb-15">
-                        <div className="progress mb-5">
-                            <div
-                                className="progress-bar"
-                                role="progressbar"
-                                style={{ width: "50%" }}
-                            ></div>
-                        </div>
-                        <span className="font-xs text-heading"> Sold: 90/120</span>
-                    </div>
+                    {/*<div className="sold mt-15 mb-15">*/}
+                    {/*    <div className="progress mb-5">*/}
+                    {/*        <div*/}
+                    {/*            className="progress-bar"*/}
+                    {/*            role="progressbar"*/}
+                    {/*            style={{ width: "50%" }}*/}
+                    {/*        ></div>*/}
+                    {/*    </div>*/}
+                    {/*    /!*<span className="font-xs text-heading"> Sold: 90/120</span>*!/*/}
+                    {/*</div>*/}
 
                     {/*{product.group === "1" ? (*/}
                     {/*    <a className="btn w-100 hover-up">*/}
@@ -195,7 +195,7 @@ const SingleProduct2 = ({
                             ) : (
                                 <div className="add-cart">
                                     <a className="btn w-100 hover-up"
-                                        onClick={() => Router.push('/page-account')}
+                                        onClick={() => Router.push('/account')}
                                     >
                                         Group
                                     </a>

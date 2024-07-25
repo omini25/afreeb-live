@@ -7,7 +7,7 @@ import { openQuickView } from "../../redux/action/quickViewAction";
 import { addToWishlist } from "../../redux/action/wishlistAction";
 import Link from "next/link";
 import axios from 'axios';
-import {server} from "../../server";
+import {server} from "../../mainServer";
 import {assetServer} from "../../assetServer";
 import Router from 'next/router';
 import {useMediaQuery} from "react-responsive";
@@ -61,9 +61,6 @@ const SingleProduct = ({
         }
     }, [userId, product.id]);
 
-    console.log(isInGroup)
-    console.log(userId)
-    console.log(product.id)
 
 
     const [commentData, setCommentData] = useState(null);
@@ -103,7 +100,7 @@ const SingleProduct = ({
                 <div className="product-img-action-wrap">
                     <div className="product-img product-img-zoom">
                         <Link legacyBehavior
-                              href="/products/[product_name]"
+                              href={`/products/${product.product_name}`}
                               as={`/products/${product.product_name}`}
                         >
                             <a>
@@ -191,18 +188,18 @@ const SingleProduct = ({
 
                     <div>
                         <span className="font-small text-muted">
-                            By <Link legacyBehavior href="/vendor/1"><a>{product.store_name}</a></Link>
+                            By <Link legacyBehavior href={`/vendor/${product.vendor_id}`}><a>{product.store_name}</a></Link>
                         </span>
                     </div>
 
                     <div className="product-card-bottom">
                         <div className="product-price">
-                            <span>${product.price} </span>
+                            <span>{product.group === "1" ? `$ ${product.group_price}` : `$ ${product.price}`}</span>
                             <span className="old-price">{product.oldPrice && `$ ${product.oldPrice}`}</span>
                         </div>
                         {product.group === "1" ? (
                             <div>
-                                {userId && isInGroup ? (
+                            {userId && isInGroup ? (
                                     <div className="add-cart">
                                         <a
                                             className="add"
@@ -215,7 +212,7 @@ const SingleProduct = ({
                                     <div className="add-cart">
                                         <a
                                             className="fi-rs-users mr-5"
-                                            onClick={() => Router.push('/page-account')}
+                                            onClick={() => Router.push('/account')}
                                         >
                                             Group
                                         </a>

@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {server} from "../../server";
+import {server} from "../../mainServer";
 import StarRatings from "react-star-ratings/build/star-ratings";
 import {useRouter} from "next/router";
 import {toast} from "react-toastify";
+import { createChat } from "../../api";
 
 const ProductTab = ({product}) => {
     const [activeIndex, setActiveIndex] = useState(1);
@@ -97,7 +98,7 @@ const ProductTab = ({product}) => {
 
         try {
             const response = await axios.post(`${server}/users/reviews/${userId}`, formData);
-            console.log(response.data);
+
             toast('Reviews submitted successfully')
             // Clear the form
             event.target.reset();
@@ -106,7 +107,22 @@ const ProductTab = ({product}) => {
         }
     };
 
-   console.log(userId)
+
+    const handleSendMessageToVendor = async () => {
+        const subject = `Inquiry about ${product.product_name}`;
+        const message = "I'm interested in this product.";
+        const participants = [product.vendor_id]; // Assuming product.vendor_id is the vendor's ID
+
+        try {
+            const response = await createChat(subject, message, participants);
+            console.log("Message sent successfully:", response)
+            toast('Message sent successfully, you would be able to chat when the vendor accepts your message')
+            // Optionally, show a success message to the user
+        } catch (error) {
+            console.error("Error sending message to vendor:", error);
+            // Optionally, show an error message to the user
+        }
+    };
 
     return (
         <div className="product-info">
@@ -229,7 +245,7 @@ const ProductTab = ({product}) => {
                                 {/*</div>*/}
 
                                 <div className="form-group">
-                                    <button  className="button button-contactForm">
+                                    <button className="button button-contactForm" onClick={handleSendMessageToVendor}>
                                         Message Vendor
                                     </button>
                                 </div>
@@ -304,7 +320,7 @@ const ProductTab = ({product}) => {
                                                     <button
                                                         className="button button-contactForm"
                                                         onClick={() => {
-                                                            router.push('/page-login'); // replace '/login' with your actual login route
+                                                            router.push('/login'); // replace '/login' with your actual login route
                                                         }}
                                                     >
                                                         Please login to leave a review

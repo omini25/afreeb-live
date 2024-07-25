@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { updateProductCategory } from "../../../redux/action/productFiltersAction";
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import {server} from "../../../server";
+import {server} from "../../../mainServer";
 
 const CategoryProduct = ({ updateProductCategory }) => {
     const router = useRouter();
@@ -37,9 +37,9 @@ const CategoryProduct = ({ updateProductCategory }) => {
         e.preventDefault();
         updateProductCategory(category);
         router.push({
-            pathname: "/products",
+            pathname: "/category",
             query: {
-                cat: category,
+                subCategory: category,
             },
         });
     };
@@ -50,7 +50,7 @@ const CategoryProduct = ({ updateProductCategory }) => {
                 {categories.map((category, i) => {
                     const productCount = products.filter(product => product.category === category.name).length;
                     return (
-                        <li key={i} onClick={(e) => selectCategory(e, category.name)}>
+                        <li key={i} onClick={(e) => selectCategory(e, category.category_name)}>
                             <a>
                                 <img
                                     src="/assets/imgs/theme/icons/category-1.svg"

@@ -24,21 +24,21 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
 
     const handleNavigation = () => {
         router.push({
-            pathname: '/shop-fullwidth',
+            pathname: '/fullwidth',
             query: { category: 'Fresh foods' }
         });
     };
 
     const handleNavigationFoodie = () => {
         router.push({
-            pathname: '/shop-fullwidth',
+            pathname: '/fullwidth',
             query: { category: 'Foodie (Hot Food)' }
         });
     };
 
     const handleNavigationFrozen = () => {
         router.push({
-            pathname: '/shop-fullwidth',
+            pathname: '/fullwidth',
             query: { category: 'Frozen Foods' }
         });
     };
@@ -309,7 +309,7 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
 
                                             {/*<li><Link legacyBehavior href="/vendor-dashboard"><a>Vendor Dashboard</a></Link></li>*/}
                                             <li><Link legacyBehavior href="/vendor-guide"><a>Vendor Guide</a></Link></li>
-                                            <li><Link legacyBehavior href="/"><a>Become A Vendor </a></Link></li>
+                                            <li><Link legacyBehavior href="/vendor.afreebmart.com"><a>Become A Vendor </a></Link></li>
                                         </ul>
                                     </li>
 
@@ -341,19 +341,19 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                 {isLoggedIn ? (
                                     <ul>
                                         <li>
-                                            <Link legacyBehavior  href="/page-account">
+                                            <Link legacyBehavior  href="/account">
                                                 <a>Account</a>
                                             </Link>
                                         </li>
                                         {/*<li>*/}
-                                        {/*    <Link legacyBehavior href="/page-account?tab=orders">*/}
+                                        {/*    <Link legacyBehavior href="/account?tab=orders">*/}
                                         {/*        <a onClick={handleOrdersClick} className={activeIndex === 2 ? "nav-link active" : "nav-link"}>*/}
                                         {/*            Orders*/}
                                         {/*        </a>*/}
                                         {/*    </Link>*/}
                                         {/*</li>*/}
                                         {/*<li>*/}
-                                        {/*    <Link legacyBehavior href="/page-account">*/}
+                                        {/*    <Link legacyBehavior href="/account">*/}
                                         {/*        <a>Profile</a>*/}
                                         {/*    </Link>*/}
                                         {/*</li>*/}
@@ -362,7 +362,7 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                                         </li>
                                     </ul>
                                 ) : (
-                                    <Link legacyBehavior href="/page-login">
+                                    <Link legacyBehavior href="/login">
                                         <a>Log In / Sign Up</a>
                                     </Link>
                                 )}

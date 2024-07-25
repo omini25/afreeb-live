@@ -2,7 +2,7 @@ import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Link from "next/link";
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 SwiperCore.use([Navigation, Pagination]);
@@ -110,8 +110,16 @@ const Intro1 = () => {
                                 Enjoy amazing deals on your favorite products
                             </p>
                             <div className="form-subcriber d-flex justify-content-center">
-                                <Link to="/products" href={`/products`} className="btn">
-                                    Shop Now
+                                <Link legacyBehavior href="/products">
+                                    <a style={{
+                                        padding: '10px 20px',
+                                        backgroundColor: '#6de669',
+                                        color: '#fff',
+                                        borderRadius: '5px',
+                                        textDecoration: 'none'
+                                    }}>
+                                        Shop Now
+                                    </a>
                                 </Link>
                             </div>
                         </div>

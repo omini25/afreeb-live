@@ -15,7 +15,7 @@ import Link from "next/link";
 import Router from 'next/router';
 import { useMediaQuery } from 'react-responsive';
 import axios from "axios";
-import {server} from "../../server";
+import {server} from "../../mainServer";
 import StarRatings from "react-star-ratings/build/star-ratings";
 
 const ProductDetails = ({
@@ -124,7 +124,7 @@ const ProductDetails = ({
                                             <div className="clearfix product-price-cover">
                                                 <div className="product-price primary-color float-left">
                                                     <span className="current-price text-brand"
-                                                          style={{fontSize: isMobile ? '25px' : 'inherit'}}>${product.price}</span>
+                                                          style={{fontSize: isMobile ? '25px' : 'inherit'}}>{product.group === "1" ? `$ ${product.group_price}` : `$ ${product.price}`}</span>
                                                     {/*<span>*/}
                                                     {/*    <span className="save-price font-md color3 ml-15">{product.discount.percentage}% Off</span>*/}
                                                     {/*    <span className="old-price font-md ml-15">{product.oldPrice ? `$ ${product.oldPrice}` : null}</span>*/}
@@ -158,7 +158,7 @@ const ProductDetails = ({
                                                     {product.group === "1" ? (
                                                         <button
                                                             className="button button-add-to-group"
-                                                            onClick={() => Router.push('/page-account')}
+                                                            onClick={() => Router.push('/account')}
                                                         >
                                                             Join or Create Group
                                                         </button>

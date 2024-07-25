@@ -28,7 +28,7 @@ const Blank = () => {
                         </div>
                         <div className="row mb-50">
                             <div className="col-12 col-lg-8 mx-auto">
-                                <div className="shop-product-fillter">
+                                <div className="product-fillter">
                                     <div className="totall-product">
                                         <p>We have <strong className="text-brand">780</strong> vendors now</p>
                                     </div>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import {useState} from "react";
 import {toast} from "react-toastify";
 import axios from "axios";
-import {server} from "../server";
+import {server} from "../mainServer";
 
 function ResetPassword() {
     const [password, setPassword] = useState('');

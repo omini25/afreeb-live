@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {server} from "../../server";
+import {server} from "../../mainServer";
 import FeaturedTab from './../elements/FeaturedTab';
 import NewArrivalTab from './../elements/NewArrivalTab';
 import TrendingTab from './../elements/TrendingTab';

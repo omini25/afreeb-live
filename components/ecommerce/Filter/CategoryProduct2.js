@@ -22,9 +22,9 @@ const CategoryProduct2 = ({ updateProductCategory }) => {
         // removeSearchTerm();
         updateProductCategory(category);
         router.push({
-            pathname: "/shop-fullwidth",
+            pathname: "/category",
             query: {
-                category: category,
+                subCategory: category,
             },
         });
     };
